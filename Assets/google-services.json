@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "979408489007",
+    "project_id": "patternsbox-a0af9",
+    "storage_bucket": "patternsbox-a0af9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979408489007:android:e204948062c2b75ea394da",
+        "android_client_info": {
+          "package_name": "com.multrinity.PatternsBox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcUpWf7SA7ftEPw5VT7QOyLDmcCBWuzNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
