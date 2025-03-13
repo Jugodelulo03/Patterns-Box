@@ -3,12 +3,13 @@ using System.Collections;
 
 public class MonitorManager : MonoBehaviour
 {
-    public Transform entryPoint;     // Punto de entrada (inicio cinta)
-    public Transform centerPoint;    // Punto central (zona interactiva)
-    public Transform exitPoint;      // Punto de salida (fin cinta)
+    [Header("Puntos de Movimiento")]
+    public Transform entryPoint;
+    public Transform centerPoint;
+    public Transform exitPoint;
 
-    public GameObject[] monitors;
-    private int currentMonitorIndex = 0;
+    [Header("Prefabs de monitores")]
+    public GameObject[] monitoresEstilos; // Diferentes estilos de monitor
 
     [Header("Monitor Actual")]
     public Monitor monitorActual;
@@ -18,21 +19,14 @@ public class MonitorManager : MonoBehaviour
     public AudioClip sonidoCorrecto;
     public AudioClip sonidoIncorrecto;
 
+    private FirebaseTextLoader firebaseTextLoader;
+
     void Start()
     {
-        // Desactivar todos excepto el primero
-        for (int i = 0; i < monitors.Length; i++)
-        {
-            monitors[i].SetActive(i == 0);
-            if (i == 0)
-            {
-                monitors[i].transform.position = entryPoint.position;
-                StartCoroutine(MoveMonitorSmooth(monitors[i], centerPoint.position));
-            }
-        }
+        firebaseTextLoader = FindObjectOfType<FirebaseTextLoader>();
+        StartCoroutine(CrearNuevoMonitorAsync()); // Llamamos a la corrutina para crear el primero
     }
 
-    // Llamado desde los botones
     public void EvaluarRespuesta(PatronEnganoso patronSeleccionado)
     {
         if (monitorActual == null) return;
@@ -48,60 +42,76 @@ public class MonitorManager : MonoBehaviour
             if (audioSource && sonidoIncorrecto) audioSource.PlayOneShot(sonidoIncorrecto);
         }
 
-        MoveToNextMonitor();
+        MoverMonitorActualYCrearOtro();
     }
 
-    public void MoveToNextMonitor()
+    void MoverMonitorActualYCrearOtro()
     {
-        if (currentMonitorIndex < monitors.Length)
+        if (monitorActual != null)
         {
-            // Mover monitor actual a la salida
-            GameObject oldMonitor = monitors[currentMonitorIndex];
-            StartCoroutine(MoveMonitorSmooth(oldMonitor, exitPoint.position));
-            StartCoroutine(DeactivateAfterDelay(oldMonitor, 1f));
-
-            currentMonitorIndex++;
-
-            // Activar y mover el siguiente
-            if (currentMonitorIndex < monitors.Length)
-            {
-                GameObject newMonitor = monitors[currentMonitorIndex];
-                newMonitor.SetActive(true);
-                newMonitor.transform.position = entryPoint.position;
-                StartCoroutine(MoveMonitorSmooth(newMonitor, centerPoint.position, 1f, true));
-            }
-            else
-            {
-                monitorActual = null; // No hay más monitores
-            }
+            StartCoroutine(MoverYDesactivar(monitorActual.gameObject, exitPoint.position));
         }
+
+        StartCoroutine(CrearNuevoMonitorAsync());
     }
 
-    IEnumerator MoveMonitorSmooth(GameObject monitor, Vector3 targetPos, float duration = 1f, bool setAsCurrent = false)
+    IEnumerator CrearNuevoMonitorAsync()
     {
-        float time = 0f;
-        Vector3 startPos = monitor.transform.position;
+        // 1. Esperar a que Firebase cargue los textos
+        var textoTask = firebaseTextLoader.GetRandomEnganoVisualTextAsync();
 
-        while (time < duration)
+        while (!textoTask.IsCompleted)
+            yield return null;
+
+        TextoMonitor variante = textoTask.Result;
+
+        if (variante == null)
         {
-            time += Time.deltaTime;
-            float t = time / duration;
-            monitor.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            Debug.LogError("No se pudo obtener textos desde Firebase. No se creará monitor.");
+            yield break;
+        }
+
+        // 2. Elegir prefab aleatorio
+        GameObject prefab = monitoresEstilos[Random.Range(0, monitoresEstilos.Length)];
+
+        // 3. Instanciar monitor
+        GameObject nuevoMonitor = Instantiate(prefab, entryPoint.position, Quaternion.identity);
+        nuevoMonitor.SetActive(true);
+
+        // 4. Asignar datos del patrón
+        Monitor monitorScript = nuevoMonitor.GetComponent<Monitor>();
+        monitorScript.patronAsignado = PatronEnganoso.EnganoVisual;
+
+        // 5. Asignar los textos al Monitor
+        monitorScript.SetTextos(variante);
+
+        // 6. Mover al centro
+        StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position));
+
+        // 7. Asignar como actual
+        monitorActual = monitorScript;
+    }
+
+    IEnumerator MoverSuavemente(GameObject monitor, Vector3 destino, float duracion = 1f)
+    {
+        float tiempo = 0f;
+        Vector3 origen = monitor.transform.position;
+
+        while (tiempo < duracion)
+        {
+            tiempo += Time.deltaTime;
+            monitor.transform.position = Vector3.Lerp(origen, destino, tiempo / duracion);
             yield return null;
         }
 
-        monitor.transform.position = targetPos;
-
-        // ✅ Si es el movimiento hacia el centro, lo marcamos como monitor actual
-        if (setAsCurrent)
-        {
-            monitorActual = monitor.GetComponent<Monitor>();
-        }
+        monitor.transform.position = destino;
     }
 
-    IEnumerator DeactivateAfterDelay(GameObject monitor, float delay)
+    IEnumerator MoverYDesactivar(GameObject monitor, Vector3 destino, float duracion = 1f)
     {
-        yield return new WaitForSeconds(delay);
-        monitor.SetActive(false);
+        yield return StartCoroutine(MoverSuavemente(monitor, destino, duracion));
+        yield return new WaitForSeconds(0.5f);
+        Destroy(monitor);
     }
 }
+
