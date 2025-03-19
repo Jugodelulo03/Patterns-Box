@@ -9,7 +9,7 @@ public class MonitorManager : MonoBehaviour
     public Transform exitPoint;
 
     [Header("Prefabs de monitores")]
-    public GameObject[] monitoresEstilos; // Diferentes estilos de monitor
+    public GameObject[] monitoresEstilos;
 
     [Header("Monitor Actual")]
     public Monitor monitorActual;
@@ -18,18 +18,25 @@ public class MonitorManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip sonidoCorrecto;
     public AudioClip sonidoIncorrecto;
+    public AudioClip sonidoMovimientoMonitor; // <- NUEVO
+
+    [Header("Fax")]
+    public FaxHojaSpawner faxHojaSpawner;
 
     private FirebaseTextLoader firebaseTextLoader;
+
+    private bool monitorListo = false; // <- NUEVA BANDERA
 
     void Start()
     {
         firebaseTextLoader = FindObjectOfType<FirebaseTextLoader>();
-        StartCoroutine(CrearNuevoMonitorAsync()); // Llamamos a la corrutina para crear el primero
+        StartCoroutine(CrearNuevoMonitorAsync());
     }
 
     public void EvaluarRespuesta(PatronEnganoso patronSeleccionado)
     {
-        if (monitorActual == null) return;
+        // No se puede responder si aún no terminó la animación
+        if (!monitorListo || monitorActual == null) return;
 
         if (patronSeleccionado == monitorActual.patronAsignado)
         {
@@ -40,6 +47,11 @@ public class MonitorManager : MonoBehaviour
         {
             Debug.Log("Respuesta Incorrecta");
             if (audioSource && sonidoIncorrecto) audioSource.PlayOneShot(sonidoIncorrecto);
+
+            if (faxHojaSpawner != null)
+            {
+                faxHojaSpawner.DispararHojaError();
+            }
         }
 
         MoverMonitorActualYCrearOtro();
@@ -57,7 +69,8 @@ public class MonitorManager : MonoBehaviour
 
     IEnumerator CrearNuevoMonitorAsync()
     {
-        // 1. Esperar a que Firebase cargue los textos
+        monitorListo = false; // <- Bloquear interacción durante la animación
+
         var textoTask = firebaseTextLoader.GetRandomEnganoVisualTextAsync();
 
         while (!textoTask.IsCompleted)
@@ -67,33 +80,33 @@ public class MonitorManager : MonoBehaviour
 
         if (variante == null)
         {
-            Debug.LogError("No se pudo obtener textos desde Firebase. No se creará monitor.");
+            Debug.LogError("No se pudo obtener textos desde Firebase.");
             yield break;
         }
 
-        // 2. Elegir prefab aleatorio
         GameObject prefab = monitoresEstilos[Random.Range(0, monitoresEstilos.Length)];
-
-        // 3. Instanciar monitor
         GameObject nuevoMonitor = Instantiate(prefab, entryPoint.position, Quaternion.identity);
         nuevoMonitor.SetActive(true);
 
-        // 4. Asignar datos del patrón
         Monitor monitorScript = nuevoMonitor.GetComponent<Monitor>();
         monitorScript.patronAsignado = PatronEnganoso.EnganoVisual;
-
-        // 5. Asignar los textos al Monitor
         monitorScript.SetTextos(variante);
 
-        // 6. Mover al centro
-        StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position));
-
-        // 7. Asignar como actual
         monitorActual = monitorScript;
+
+        yield return StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position));
+
+        monitorListo = true; // <- Ahora sí se puede interactuar
     }
 
     IEnumerator MoverSuavemente(GameObject monitor, Vector3 destino, float duracion = 1f)
     {
+        // Sonido de movimiento
+        if (audioSource && sonidoMovimientoMonitor)
+        {
+            audioSource.PlayOneShot(sonidoMovimientoMonitor);
+        }
+
         float tiempo = 0f;
         Vector3 origen = monitor.transform.position;
 
@@ -114,4 +127,3 @@ public class MonitorManager : MonoBehaviour
         Destroy(monitor);
     }
 }
-
