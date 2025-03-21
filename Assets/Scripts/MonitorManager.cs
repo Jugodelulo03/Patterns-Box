@@ -18,44 +18,50 @@ public class MonitorManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip sonidoCorrecto;
     public AudioClip sonidoIncorrecto;
-    public AudioClip sonidoMovimientoMonitor; // <- NUEVO
+    public AudioClip sonidoMovimientoMonitor;
 
     [Header("Fax")]
     public FaxHojaSpawner faxHojaSpawner;
 
     private FirebaseTextLoader firebaseTextLoader;
+    private bool monitorListo = false;
 
-    private bool monitorListo = false; // <- NUEVA BANDERA
-
+    public UIManager uiManager;
     void Start()
     {
         firebaseTextLoader = FindObjectOfType<FirebaseTextLoader>();
         StartCoroutine(CrearNuevoMonitorAsync());
     }
 
+
     public void EvaluarRespuesta(PatronEnganoso patronSeleccionado)
     {
-        // No se puede responder si aún no terminó la animación
         if (!monitorListo || monitorActual == null) return;
 
         if (patronSeleccionado == monitorActual.patronAsignado)
         {
             Debug.Log("¡Respuesta Correcta!");
             if (audioSource && sonidoCorrecto) audioSource.PlayOneShot(sonidoCorrecto);
+
+            if (uiManager != null)
+            {
+                uiManager.SumarMonitorCorrecto(); // ← Suma al contador
+            }
         }
         else
         {
             Debug.Log("Respuesta Incorrecta");
             if (audioSource && sonidoIncorrecto) audioSource.PlayOneShot(sonidoIncorrecto);
-
             if (faxHojaSpawner != null)
             {
                 faxHojaSpawner.DispararHojaError();
             }
+            uiManager.SumarError();
         }
 
         MoverMonitorActualYCrearOtro();
     }
+
 
     void MoverMonitorActualYCrearOtro()
     {
@@ -69,39 +75,40 @@ public class MonitorManager : MonoBehaviour
 
     IEnumerator CrearNuevoMonitorAsync()
     {
-        monitorListo = false; // <- Bloquear interacción durante la animación
+        monitorListo = false;
 
-        var textoTask = firebaseTextLoader.GetRandomEnganoVisualTextAsync();
-
-        while (!textoTask.IsCompleted)
-            yield return null;
-
-        TextoMonitor variante = textoTask.Result;
-
-        if (variante == null)
-        {
-            Debug.LogError("No se pudo obtener textos desde Firebase.");
-            yield break;
-        }
-
+        // Elegir prefab aleatorio
         GameObject prefab = monitoresEstilos[Random.Range(0, monitoresEstilos.Length)];
         GameObject nuevoMonitor = Instantiate(prefab, entryPoint.position, Quaternion.identity);
         nuevoMonitor.SetActive(true);
 
         Monitor monitorScript = nuevoMonitor.GetComponent<Monitor>();
-        monitorScript.patronAsignado = PatronEnganoso.EnganoVisual;
-        monitorScript.SetTextos(variante);
+        PatronEnganoso patron = monitorScript.patronAsignado;
+        string variante = monitorScript.varianteSeleccionada;
+
+        // Obtener textos desde Firebase según patrón y variante seleccionada
+        var textoTask = firebaseTextLoader.GetRandomSubvarianteFor(patron, variante);
+        while (!textoTask.IsCompleted)
+            yield return null;
+
+        TextoMonitor textos = textoTask.Result;
+
+        if (textos != null)
+        {
+            monitorScript.SetTextos(textos);
+        }
+        else
+        {
+            Debug.LogError("No se pudieron cargar textos para el patrón: " + patron + ", variante: " + variante);
+        }
 
         monitorActual = monitorScript;
-
         yield return StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position));
-
-        monitorListo = true; // <- Ahora sí se puede interactuar
+        monitorListo = true;
     }
 
     IEnumerator MoverSuavemente(GameObject monitor, Vector3 destino, float duracion = 1f)
     {
-        // Sonido de movimiento
         if (audioSource && sonidoMovimientoMonitor)
         {
             audioSource.PlayOneShot(sonidoMovimientoMonitor);

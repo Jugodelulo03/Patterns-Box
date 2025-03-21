@@ -13,45 +13,49 @@ public class FirebaseTextLoader : MonoBehaviour
         dbReference = FirebaseDatabase.GetInstance(app, "https://patternsbox-a0af9-default-rtdb.firebaseio.com/").RootReference;
     }
 
-    public async Task<TextoMonitor> GetRandomEnganoVisualTextAsync()
+    public async Task<TextoMonitor> GetRandomSubvarianteFor(PatronEnganoso patron, string varianteNombre)
     {
-        var snapshot = await dbReference
-            .Child("patronesEnganosos")
-            .Child("EnganoVisual")
-            .Child("variantes")
-            .GetValueAsync();
+        string patronKey = patron.ToString();
+        string path = $"patronesEnganosos/{patronKey}/variantes/{varianteNombre}/subvariantes";
 
-        if (snapshot.Exists)
+        var snapshot = await dbReference.Child(path).GetValueAsync();
+
+        if (!snapshot.Exists)
         {
-            List<TextoMonitor> variantes = new List<TextoMonitor>();
-
-            foreach (var child in snapshot.Children)
-            {
-                string rawJson = child.GetRawJsonValue();
-                Debug.Log("Raw JSON recibido: " + rawJson);
-
-                TextoMonitor textos = JsonUtility.FromJson<TextoMonitor>(rawJson);
-                variantes.Add(textos);
-            }
-
-            if (variantes.Count > 0)
-            {
-                int randomIndex = Random.Range(0, variantes.Count);
-                TextoMonitor varianteElegida = variantes[randomIndex];
-
-                Debug.Log("Textos seleccionados de Firebase:");
-                Debug.Log("Texto 1: " + varianteElegida.texto1);
-                Debug.Log("Texto 2: " + varianteElegida.texto2);
-                Debug.Log("Texto 3: " + varianteElegida.texto3);
-                Debug.Log("Texto 4: " + varianteElegida.texto4);
-                Debug.Log("Texto 5: " + varianteElegida.texto5);
-
-                return varianteElegida;
-            }
+            Debug.LogWarning($"No se encontraron subvariantes en Firebase para {patronKey} > {varianteNombre}");
+            return null;
         }
 
-        Debug.LogWarning("No se encontraron variantes en Firebase.");
-        return null;
+        List<DataSnapshot> subvariantes = new List<DataSnapshot>();
+        foreach (var sub in snapshot.Children)
+        {
+            subvariantes.Add(sub);
+        }
+
+        if (subvariantes.Count == 0)
+        {
+            Debug.LogWarning($"Subvariantes vacías para {patronKey} > {varianteNombre}");
+            return null;
+        }
+
+        var seleccionada = subvariantes[Random.Range(0, subvariantes.Count)];
+
+        TextoMonitor texto = new TextoMonitor
+        {
+            texto1 = seleccionada.Child("texto1").Value?.ToString(),
+            texto2 = seleccionada.Child("texto2").Value?.ToString(),
+            texto3 = seleccionada.Child("texto3").Value?.ToString(),
+            texto4 = seleccionada.Child("texto4").Value?.ToString(),
+            texto5 = seleccionada.Child("texto5").Value?.ToString()
+        };
+
+        Debug.Log($"Textos cargados de {patronKey} > {varianteNombre} > {seleccionada.Key}:");
+        Debug.Log(texto.texto1);
+        Debug.Log(texto.texto2);
+        Debug.Log(texto.texto3);
+        Debug.Log(texto.texto4);
+        Debug.Log(texto.texto5);
+
+        return texto;
     }
 }
-
