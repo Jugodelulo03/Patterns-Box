@@ -240,7 +240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 406, y: 635}
+  m_AnchoredPosition: {x: 406, y: 672}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8012628160202418250
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tener ingresos
+  m_text: Bebe Agua
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
   m_sharedMaterial: {fileID: -3867019097545937274, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Levantate Temprano
+  m_text: Haz ejercicio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
   m_sharedMaterial: {fileID: -3867019097545937274, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
@@ -956,7 +956,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "No te Quejes de tu situaci\xF3n"
+  m_text: "Ten Motivaci\xF3n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
   m_sharedMaterial: {fileID: -3867019097545937274, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
@@ -1059,7 +1059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 436, y: 538.9999}
+  m_AnchoredPosition: {x: 436, y: 583.9998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6066248051053660830
@@ -1593,7 +1593,7 @@ GameObject:
   - component: {fileID: 2169679468934255518}
   - component: {fileID: 8510442887795540646}
   m_Layer: 3
-  m_Name: EnganoVisualVariante1
+  m_Name: EnganoVisualVariante2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1697,10 +1697,10 @@ RectTransform:
   - {fileID: 2638159616807056723}
   - {fileID: 3287283520672940496}
   - {fileID: 2103705749161124743}
-  - {fileID: 1975551061772990086}
   - {fileID: 6025134496502582112}
   - {fileID: 464805246092786109}
   - {fileID: 2779033592411543067}
+  - {fileID: 1975551061772990086}
   - {fileID: 8280083799816243214}
   - {fileID: 2147562228502999948}
   - {fileID: 6167157555240321947}
@@ -1776,8 +1776,8 @@ RectTransform:
   m_GameObject: {fileID: 3602050842711410228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.7312, y: 3.7312, z: 3.7312}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.76, y: 4.76, z: 4.76}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6168933469305507497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1814,7 +1814,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 1160913ddac8e014e91264e32c5b7402, type: 3}
+  m_Texture: {fileID: 2800000, guid: b9ecfbbb5a6224d45b896503d0651160, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2221,7 +2221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -132, y: 538.9999}
+  m_AnchoredPosition: {x: -132, y: 583.9998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2158682096040284838
@@ -2386,7 +2386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2169b9097d0432541bc4f27c0a477ab4, type: 3}
+  m_Texture: {fileID: 2800000, guid: fc1fa5c2ac0f14a4f80f574101d4433f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2518,7 +2518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 556, y: 903.9999}
+  m_AnchoredPosition: {x: 612, y: 903.9999}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2544705047127089662
@@ -2549,7 +2549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2e9ea3b47b4cb5a4b8fb86d3fe43ec52, type: 3}
+  m_Texture: {fileID: 2800000, guid: 134d8c20f660cab448c4b9e51500074d, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3123,7 +3123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -731, y: 535.9999}
+  m_AnchoredPosition: {x: -731, y: 581}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1148198560226249000
