@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DeskBaseLayer
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature_Desk
+    m_Weight: 1
+  - m_Path: Armature_Desk/All
+    m_Weight: 1
+  - m_Path: Armature_Desk/All/1
+    m_Weight: 1
+  - m_Path: Armature_Desk/All/1/1_end
+    m_Weight: 1
+  - m_Path: Armature_Desk/All/2
+    m_Weight: 1
+  - m_Path: Armature_Desk/All/2/2_end
+    m_Weight: 1
+  - m_Path: Armature_Desk/All/3
+    m_Weight: 1
+  - m_Path: Armature_Desk/All/3/Btn1
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn1/Btn1_end
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn2
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn2/Btn2_end
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn3
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn3/Btn3_end
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn4
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn4/Btn4_end
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn5
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn5/Btn5_end
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn6
+    m_Weight: 0
+  - m_Path: Armature_Desk/All/3/Btn6/Btn6_end
+    m_Weight: 0
+  - m_Path: Armature_Desk/BtnG
+    m_Weight: 1
+  - m_Path: Armature_Desk/BtnG/BtnG_end
+    m_Weight: 1
+  - m_Path: Armature_Desk/BtnR
+    m_Weight: 1
+  - m_Path: Armature_Desk/BtnR/BtnR_end
+    m_Weight: 1
+  - m_Path: Btn_1
+    m_Weight: 0
+  - m_Path: Btn_2
+    m_Weight: 0
+  - m_Path: Btn_3
+    m_Weight: 0
+  - m_Path: Btn_4
+    m_Weight: 0
+  - m_Path: Btn_5
+    m_Weight: 0
+  - m_Path: Btn_6
+    m_Weight: 1
+  - m_Path: Btn_Green
+    m_Weight: 1
+  - m_Path: Btn_Red
+    m_Weight: 1
+  - m_Path: Room
+    m_Weight: 1
+  - m_Path: Slider_1
+    m_Weight: 1

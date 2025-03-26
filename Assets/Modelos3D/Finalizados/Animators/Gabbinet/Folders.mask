@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Folders
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature_Gabinet
+    m_Weight: 0
+  - m_Path: Armature_Gabinet/Root
+    m_Weight: 0
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open
+    m_Weight: 0
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide1
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide1/Guide1_end
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide2
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide2/Guide2_end
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide3
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide3/Guide3_end
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide4
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide4/Guide4_end
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide5
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide5/Guide5_end
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide6
+    m_Weight: 1
+  - m_Path: Armature_Gabinet/Root/Gabinet_Open/Guide6/Guide6_end
+    m_Weight: 1
+  - m_Path: Gabinet
+    m_Weight: 0
+  - m_Path: Guide1
+    m_Weight: 1
+  - m_Path: Guide2
+    m_Weight: 1
+  - m_Path: Guide3
+    m_Weight: 1
+  - m_Path: Guide4
+    m_Weight: 1
+  - m_Path: Guide5
+    m_Weight: 1
+  - m_Path: Guide6
+    m_Weight: 1
