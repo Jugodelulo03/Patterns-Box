@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MonitorButton : MonoBehaviour
 {
+
     public MonitorManager monitorManager;
     public PatronEnganoso patronDelBoton;
     public float interactionDistance = 3f;

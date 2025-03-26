@@ -3,6 +3,9 @@ using System.Collections;
 
 public class MonitorManager : MonoBehaviour
 {
+    [Header("AnimadorMesa")]
+    public Animator anim;
+
     [Header("Puntos de Movimiento")]
     public Transform entryPoint;
     public Transform centerPoint;
@@ -27,16 +30,33 @@ public class MonitorManager : MonoBehaviour
     private bool monitorListo = false;
 
     public UIManager uiManager;
+
+    [Header("Botones")]
+    public GameObject[] boton;
+    public GameObject botonRED;
+
     void Start()
     {
         firebaseTextLoader = FindObjectOfType<FirebaseTextLoader>();
-        StartCoroutine(CrearNuevoMonitorAsync());
+        StartCoroutine(CrearNuevoMonitorAsync(true));
     }
 
 
     public void EvaluarRespuesta(PatronEnganoso patronSeleccionado)
     {
         if (!monitorListo || monitorActual == null) return;
+
+        int valorPatron = ObtenerValorPatron(patronSeleccionado);
+
+        if (valorPatron == 7)
+        {
+            anim.SetInteger("DeskState", 1); // Cambia el valor en el Animator
+        }
+        else
+        {
+            anim.SetInteger("BtnPress", valorPatron); // Cambia el valor en el Animator
+        }
+
 
         if (patronSeleccionado == monitorActual.patronAsignado)
         {
@@ -47,33 +67,54 @@ public class MonitorManager : MonoBehaviour
             {
                 uiManager.SumarMonitorCorrecto(); // ← Suma al contador
             }
+            MoverMonitorActualYCrearOtro(true);
         }
         else
         {
             Debug.Log("Respuesta Incorrecta");
-            if (audioSource && sonidoIncorrecto) audioSource.PlayOneShot(sonidoIncorrecto);
             if (faxHojaSpawner != null)
             {
                 faxHojaSpawner.DispararHojaError();
             }
+            if (audioSource && sonidoIncorrecto) audioSource.PlayOneShot(sonidoIncorrecto);
             uiManager.SumarError();
+            MoverMonitorActualYCrearOtro(false);
         }
 
-        MoverMonitorActualYCrearOtro();
+        foreach (GameObject b in boton)
+        {
+            b.layer = LayerMask.NameToLayer("Default");
+        }
+
+        botonRED.layer = LayerMask.NameToLayer("Interactable");
+    }
+
+    private int ObtenerValorPatron(PatronEnganoso patron)
+    {
+        switch (patron)
+        {
+            case PatronEnganoso.EnganoVisual: return 1;
+            case PatronEnganoso.RoboAtencion: return 2;
+            case PatronEnganoso.ObstruccionFriccion: return 3;
+            case PatronEnganoso.RecoleccionAbusivaDatos: return 4;
+            case PatronEnganoso.PresionPsicologica: return 5;
+            case PatronEnganoso.FalsasPromesas: return 6;
+            case PatronEnganoso.Ninguno: return 7;
+            default: return 0;
+        }
     }
 
 
-    void MoverMonitorActualYCrearOtro()
+    void MoverMonitorActualYCrearOtro(bool isCorrect)
     {
         if (monitorActual != null)
         {
-            StartCoroutine(MoverYDesactivar(monitorActual.gameObject, exitPoint.position));
+            StartCoroutine(MoverYDesactivar(monitorActual.gameObject, exitPoint.position,1));
         }
-
-        StartCoroutine(CrearNuevoMonitorAsync());
+            StartCoroutine(CrearNuevoMonitorAsync(isCorrect));
     }
 
-    IEnumerator CrearNuevoMonitorAsync()
+    IEnumerator CrearNuevoMonitorAsync(bool isCorrect)
     {
         monitorListo = false;
 
@@ -103,11 +144,15 @@ public class MonitorManager : MonoBehaviour
         }
 
         monitorActual = monitorScript;
-        yield return StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position));
+        if (!isCorrect)
+        {
+            yield return new WaitForSeconds(2f);
+        }
+        yield return StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position, 1));
         monitorListo = true;
     }
 
-    IEnumerator MoverSuavemente(GameObject monitor, Vector3 destino, float duracion = 1f)
+    IEnumerator MoverSuavemente(GameObject monitor, Vector3 destino, float duracion)
     {
         if (audioSource && sonidoMovimientoMonitor)
         {
@@ -130,7 +175,7 @@ public class MonitorManager : MonoBehaviour
     IEnumerator MoverYDesactivar(GameObject monitor, Vector3 destino, float duracion = 1f)
     {
         yield return StartCoroutine(MoverSuavemente(monitor, destino, duracion));
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         Destroy(monitor);
     }
 }

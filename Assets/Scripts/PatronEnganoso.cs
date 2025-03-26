@@ -1,9 +1,10 @@
 public enum PatronEnganoso
 {
     EnganoVisual,
-    ObstruccionFriccion,
-    PresionPsicologica,
     RoboAtencion,
+    ObstruccionFriccion,
     RecoleccionAbusivaDatos,
-    FalsasPromesas
+    PresionPsicologica,
+    FalsasPromesas,
+    Ninguno
 }
