@@ -2261,6 +2261,11 @@ MonoBehaviour:
   exitPoint: {fileID: 70913656}
   monitoresEstilos:
   - {fileID: 2985769297358543829, guid: b861fc28aad78e64082dfe4d831ea980, type: 3}
+  - {fileID: 2985769297358543829, guid: 2cda77041de78304d9b1939fafe751ec, type: 3}
+  - {fileID: 2985769297358543829, guid: 2467bf3b47f08704bbf84f2c890eda31, type: 3}
+  - {fileID: 2985769297358543829, guid: fff256d52083d9d41bf41ce0848893d1, type: 3}
+  - {fileID: 2985769297358543829, guid: 2f5652174690eda43bbecb3a681e1d74, type: 3}
+  - {fileID: 2985769297358543829, guid: d53d9d4201fdaf64b9f44674df414447, type: 3}
   monitorActual: {fileID: 0}
   audioSource: {fileID: 1539627448}
   sonidoCorrecto: {fileID: 8300000, guid: 4f8182a2ec02fb14cbbe862852937cc9, type: 3}
