@@ -28,7 +28,7 @@ public class MonitorLookInteraction : MonoBehaviour
         {
             //Debug.Log("Detectado monitor: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetMouseButtonDown(0))
             {
                 ActivateUIInteraction();
             }

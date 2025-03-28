@@ -1,13 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class MonitorButton : MonoBehaviour
+public class OpenGabinete : MonoBehaviour
 {
 
-    public MonitorManager monitorManager;
-    public PatronEnganoso patronDelBoton;
     public float interactionDistance = 3f;
     public LayerMask interactionLayer;
     public Camera raycastCamera;
+
+    public Animator buttonAnimator;  // Asigna el Animator del botón en el Inspector
+    public float tiempoEspera = 2f; // Tiempo antes de volver a 0 (editable en el Inspector)
 
     void Update()
     {
@@ -20,9 +23,18 @@ public class MonitorButton : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    monitorManager.EvaluarRespuesta(patronDelBoton);
+                    CheckForButton();
                 }
             }
+        }
+    }
+
+    void CheckForButton()
+    {
+        if (buttonAnimator != null)
+        {
+            buttonAnimator.SetBool("Open", true);
+            gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
 }
