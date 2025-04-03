@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aeec04ca34045379a55697acf37210a, type: 3}
   m_Name: InputConfig
   m_EditorClassIdentifier: 
-  initialInputType: 0
+  initialInputType: 1
   adaptationInput: 1

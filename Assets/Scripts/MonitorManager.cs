@@ -41,7 +41,6 @@ public class MonitorManager : MonoBehaviour
         StartCoroutine(CrearNuevoMonitorAsync(true));
     }
 
-
     public void EvaluarRespuesta(PatronEnganoso patronSeleccionado)
     {
         if (!monitorListo || monitorActual == null) return;
@@ -50,42 +49,39 @@ public class MonitorManager : MonoBehaviour
 
         if (valorPatron == 7)
         {
-            anim.SetInteger("DeskState", 1); // Cambia el valor en el Animator
+            anim.SetInteger("DeskState", 1);
         }
         else
         {
-            anim.SetInteger("BtnPress", valorPatron); // Cambia el valor en el Animator
+            anim.SetInteger("BtnPress", valorPatron);
         }
 
+        bool esCorrecto = patronSeleccionado == monitorActual.patronAsignado;
+        string patronNombre = monitorActual.patronAsignado.ToString();
 
-        if (patronSeleccionado == monitorActual.patronAsignado)
+        if (esCorrecto)
         {
             Debug.Log("¡Respuesta Correcta!");
             if (audioSource && sonidoCorrecto) audioSource.PlayOneShot(sonidoCorrecto);
-
-            if (uiManager != null)
-            {
-                uiManager.SumarMonitorCorrecto(); // ← Suma al contador
-            }
-            MoverMonitorActualYCrearOtro(true);
+            uiManager?.SumarMonitorCorrecto();
         }
         else
         {
             Debug.Log("Respuesta Incorrecta");
-            if (faxHojaSpawner != null)
-            {
-                faxHojaSpawner.DispararHojaError();
-            }
+            faxHojaSpawner?.DispararHojaError();
             if (audioSource && sonidoIncorrecto) audioSource.PlayOneShot(sonidoIncorrecto);
-            uiManager.SumarError();
-            MoverMonitorActualYCrearOtro(false);
+            uiManager?.SumarError(patronNombre);
         }
+
+        // Registrar estadística
+        //GameStatsManager.Instance.RegistrarMonitor(esCorrecto, patronNombre);
+
+        MoverMonitorActualYCrearOtro(esCorrecto);
 
         foreach (GameObject b in boton)
         {
             b.layer = LayerMask.NameToLayer("Default");
         }
-
         botonRED.layer = LayerMask.NameToLayer("Interactable");
     }
 
@@ -104,21 +100,22 @@ public class MonitorManager : MonoBehaviour
         }
     }
 
-
     void MoverMonitorActualYCrearOtro(bool isCorrect)
     {
         if (monitorActual != null)
         {
-            StartCoroutine(MoverYDesactivar(monitorActual.gameObject, exitPoint.position,1));
+            StartCoroutine(MoverYDesactivar(monitorActual.gameObject, exitPoint.position, 1));
         }
-            StartCoroutine(CrearNuevoMonitorAsync(isCorrect));
+        StartCoroutine(CrearNuevoMonitorAsync(isCorrect));
     }
 
     IEnumerator CrearNuevoMonitorAsync(bool isCorrect)
     {
         monitorListo = false;
 
-        // Elegir prefab aleatorio
+        // Iniciar tiempo para el nuevo monitor
+        GameStatsManager.Instance.IniciarTiempoMonitor();
+
         GameObject prefab = monitoresEstilos[Random.Range(0, monitoresEstilos.Length)];
         GameObject nuevoMonitor = Instantiate(prefab, entryPoint.position, Quaternion.identity);
         nuevoMonitor.SetActive(true);
@@ -127,7 +124,6 @@ public class MonitorManager : MonoBehaviour
         PatronEnganoso patron = monitorScript.patronAsignado;
         string variante = monitorScript.varianteSeleccionada;
 
-        // Obtener textos desde Firebase según patrón y variante seleccionada
         var textoTask = firebaseTextLoader.GetRandomSubvarianteFor(patron, variante);
         while (!textoTask.IsCompleted)
             yield return null;

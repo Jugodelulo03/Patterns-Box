@@ -12,11 +12,11 @@ public class CanvasCameraSetter : MonoBehaviour
             if (camPantalla != null)
             {
                 canvas.worldCamera = camPantalla;
-                Debug.Log("Canvas asignado a CameraPantalla correctamente en: " + gameObject.name);
+                //Debug.Log("Canvas asignado a CameraPantalla correctamente en: " + gameObject.name);
             }
             else
             {
-                Debug.LogWarning("No se encontró una cámara llamada 'CameraPantalla'");
+                //Debug.LogWarning("No se encontró una cámara llamada 'CameraPantalla'");
             }
         }
     }

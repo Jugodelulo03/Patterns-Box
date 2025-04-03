@@ -67,14 +67,16 @@ public class UIManager : MonoBehaviour
         if (juegoFinalizado) return;
 
         monitoresCorrectos++;
+        GameStatsManager.Instance?.RegistrarMonitor(true, ""); // No hay patrón engañoso en aciertos
         ActualizarUI();
     }
 
-    public void SumarError()
+    public void SumarError(string patronEnganoso)
     {
         if (juegoFinalizado) return;
 
         errores++;
+        GameStatsManager.Instance?.RegistrarMonitor(false, patronEnganoso);
 
         if (errores >= erroresMaximos)
         {
@@ -102,17 +104,17 @@ public class UIManager : MonoBehaviour
         juegoFinalizado = true;
         tiempoActivo = false;
 
+        GameStatsManager.Instance?.EnviarEstadisticasAFirebase(); // Enviar datos a Firebase
+
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
 
         if (controladorJugador != null)
             controladorJugador.enabled = false;
 
-        // ✅ Cambiar cámaras
         if (cameraJuego != null) cameraJuego.enabled = false;
         if (cameraGameOver != null) cameraGameOver.enabled = true;
 
-        // ✅ Mostrar y desbloquear cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

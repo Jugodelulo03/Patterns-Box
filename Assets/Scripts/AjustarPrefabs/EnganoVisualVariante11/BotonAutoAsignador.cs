@@ -12,27 +12,27 @@ public class BotonAutoAsignador : MonoBehaviour
         Button btn = GetComponent<Button>();
         if (btn == null)
         {
-            Debug.LogWarning("BotonAutoAsignador: No se encontró el componente Button.");
+            //Debug.LogWarning("BotonAutoAsignador: No se encontró el componente Button.");
             yield break;
         }
 
         if (Camera.main == null)
         {
-            Debug.LogWarning("BotonAutoAsignador: No se encontró Camera.main.");
+            //Debug.LogWarning("BotonAutoAsignador: No se encontró Camera.main.");
             yield break;
         }
 
         MonitorLookInteraction interaction = Camera.main.GetComponent<MonitorLookInteraction>();
         if (interaction == null)
         {
-            Debug.LogWarning("BotonAutoAsignador: No se encontró MonitorLookInteraction en la cámara.");
+            //Debug.LogWarning("BotonAutoAsignador: No se encontró MonitorLookInteraction en la cámara.");
             yield break;
         }
 
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(interaction.ExitUIInteraction);
 
-        Debug.Log("BotonAutoAsignador: Evento onClick asignado correctamente.");
+        //Debug.Log("BotonAutoAsignador: Evento onClick asignado correctamente.");
     }
 }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SimplePlayerData
   m_EditorClassIdentifier: 
   <AvailablePlayerStates>k__BackingField: 63
-  <WalkSpeed>k__BackingField: 4
+  <WalkSpeed>k__BackingField: 3
   <Gravity>k__BackingField: 10
   <AirControl>k__BackingField: 1
   <RunSpeed>k__BackingField: 5

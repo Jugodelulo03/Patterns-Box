@@ -49,12 +49,6 @@ public class FirebaseTextLoader : MonoBehaviour
             texto5 = seleccionada.Child("texto5").Value?.ToString()
         };
 
-        Debug.Log($"Textos cargados de {patronKey} > {varianteNombre} > {seleccionada.Key}:");
-        Debug.Log(texto.texto1);
-        Debug.Log(texto.texto2);
-        Debug.Log(texto.texto3);
-        Debug.Log(texto.texto4);
-        Debug.Log(texto.texto5);
 
         return texto;
     }
