@@ -6,6 +6,8 @@ public class GameStatsManager : MonoBehaviour
 {
     public static GameStatsManager Instance;
 
+    public int numeroNivel = 1;
+
     private int monitoresCorrectos = 0;
     private int monitoresIncorrectos = 0;
     private float tiempoTotalNivel = 0f;
@@ -15,6 +17,28 @@ public class GameStatsManager : MonoBehaviour
     private Dictionary<string, int> patronesFallados = new Dictionary<string, int>();
 
     private float tiempoInicioMonitor;
+
+    public int GetMonitoresCorrectos() => monitoresCorrectos;
+    public int GetMonitoresIncorrectos() => monitoresIncorrectos;
+    public int GetTotalRevisados() => monitoresCorrectos + monitoresIncorrectos;
+    public float GetTiempoPromedioPorMonitor() => tiemposPorMonitor.Count > 0 ? tiempoTotalNivel / tiemposPorMonitor.Count : 0f;
+    public float GetPorcentajeAciertos() => GetTotalRevisados() > 0 ? (monitoresCorrectos * 100f) / GetTotalRevisados() : 0f;
+    public int GetMaxErroresConsecutivos() => maxErroresConsecutivos;
+
+    public string GetPatronMasFallado()
+    {
+        string patron = "";
+        int max = 0;
+        foreach (var entry in patronesFallados)
+        {
+            if (entry.Value > max)
+            {
+                max = entry.Value;
+                patron = entry.Key;
+            }
+        }
+        return patron;
+    }
 
     private void Awake()
     {
@@ -104,14 +128,15 @@ public class GameStatsManager : MonoBehaviour
 
         Dictionary<string, object> datos = new Dictionary<string, object>
         {
+            { "nivel", numeroNivel },
+            { "totalMonitoresRevisados", monitoresCorrectos + monitoresIncorrectos },
             { "monitoresCorrectos", monitoresCorrectos },
             { "monitoresIncorrectos", monitoresIncorrectos },
-            { "tiempoTotalNivel", tiempoTotalNivel.ToString("F2") },
-            { "tiempoPromedioResolucion", promedioResolucion.ToString("F2") },
             { "porcentajeAciertos", porcentajeAciertos.ToString("F2") },
-            { "totalMonitoresRevisados", monitoresCorrectos + monitoresIncorrectos },
-            { "maxErroresConsecutivos", maxErroresConsecutivos },
-            { "patronMasFallado", patronMasFallado }
+            { "tiempoPromedioResolucion", promedioResolucion.ToString("F1") },
+            { "tiempoTotalNivel", tiempoTotalNivel.ToString("F1") },
+            { "patronMasFallado", patronMasFallado },
+            { "maxErroresConsecutivos", maxErroresConsecutivos }
         };
 
         dbRef.Child(userId).SetValueAsync(datos).ContinueWith(task =>

@@ -22,7 +22,8 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public bool juegoFinalizado = false;
 
     [Header("Panel Game Over")]
-    public GameObject gameOverPanel;
+    public GameObject Resultados; // Asigna el panel de pausa en el Inspector
+    public Animator animador; // Asigna el Animator en el Inspector
 
     [Header("Controlador de Jugador (MFPC)")]
     public MonoBehaviour controladorJugador; // Tu script de movimiento
@@ -35,9 +36,6 @@ public class UIManager : MonoBehaviour
     {
         tiempoRestante = tiempoTotal;
         ActualizarUI();
-
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(false);
 
         if (cameraJuego != null) cameraJuego.enabled = true;
         if (cameraGameOver != null) cameraGameOver.enabled = false;
@@ -106,8 +104,16 @@ public class UIManager : MonoBehaviour
 
         GameStatsManager.Instance?.EnviarEstadisticasAFirebase(); // Enviar datos a Firebase
 
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
+        Resultados.SetActive(true);
+        Time.timeScale = 0f; // Detiene el juego
+        controladorJugador.enabled = false; // Deshabilita el movimiento
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (animador != null)
+        {
+            animador.SetBool("isPause", true);
+        }
 
         if (controladorJugador != null)
             controladorJugador.enabled = false;
