@@ -506,10 +506,10 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
+      - time: 0.4642857
         functionName: CloseGabit
         data: 
-        objectReferenceParameter: {fileID: 919132149155446097, guid: f64f8aec821d4f54a90db43245f2a511, type: 3}
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
