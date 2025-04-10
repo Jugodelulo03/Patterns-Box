@@ -10,6 +10,10 @@ public class MonitorLookInteraction : MonoBehaviour
 
     private bool uiActive = false;
 
+    public MonoBehaviour playerController; // Asigna el script de MFPC en el Inspector
+    public MonoBehaviour playerController2; // Asigna el script de MFPC en el Inspector
+
+
     void Start()
     {
         // Asegurarse de que al inicio solo la cámara del jugador esté activa
@@ -42,6 +46,9 @@ public class MonitorLookInteraction : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        playerController.enabled = false; // Deshabilita el movimiento
+        playerController2.enabled = false; // Deshabilita el movimiento
+
         // Cambiar cámaras
         if (playerCamera) playerCamera.enabled = false;
         if (monitorCamera) monitorCamera.enabled = true;
@@ -53,6 +60,9 @@ public class MonitorLookInteraction : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        playerController.enabled = true; // Deshabilita el movimiento
+        playerController2.enabled = true; // Deshabilita el movimiento
 
         // Restaurar cámaras
         if (playerCamera) playerCamera.enabled = true;

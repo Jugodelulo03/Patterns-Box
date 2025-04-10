@@ -89,11 +89,11 @@ public class MonitorManager : MonoBehaviour
     {
         switch (patron)
         {
-            case PatronEnganoso.EnganoVisual: return 1;
-            case PatronEnganoso.RoboAtencion: return 2;
-            case PatronEnganoso.ObstruccionFriccion: return 3;
+            case PatronEnganoso.PresionPsicologica: return 1;
+            case PatronEnganoso.EnganoVisual: return 2;
+            case PatronEnganoso.RoboAtencion: return 3;
             case PatronEnganoso.RecoleccionAbusivaDatos: return 4;
-            case PatronEnganoso.PresionPsicologica: return 5;
+            case PatronEnganoso.ObstruccionFriccion: return 5;
             case PatronEnganoso.FalsasPromesas: return 6;
             case PatronEnganoso.Ninguno: return 7;
             default: return 0;

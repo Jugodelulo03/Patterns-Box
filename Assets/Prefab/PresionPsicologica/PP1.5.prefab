@@ -1171,7 +1171,7 @@ GameObject:
   - component: {fileID: 2169679468934255518}
   - component: {fileID: 8510442887795540646}
   m_Layer: 3
-  m_Name: EnganoVisualVariante5
+  m_Name: PP1.5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbd83aac53869f46bdd64bdad56640e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patronAsignado: 0
+  patronAsignado: 4
   varianteSeleccionada: variante2
   texto1: {fileID: 8031996553833745243}
   texto2: {fileID: 7953478666528253670}

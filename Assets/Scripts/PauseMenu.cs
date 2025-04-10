@@ -5,6 +5,8 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel; // Asigna el panel de pausa en el Inspector
     public MonoBehaviour playerController; // Asigna el script de MFPC en el Inspector
+    public MonoBehaviour playerController2; // Asigna el script de MFPC en el Inspector
+
     private bool isPaused = false;
     public Animator animador; // Asigna el Animator en el Inspector
     public string triggerName = "SubirCarpeta";
@@ -25,8 +27,10 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) // Presiona ESC para pausar/despausar
+        //Debug.Log(Cursor.visible);
+        if ((Input.GetKeyDown(KeyCode.Escape))&&(!Cursor.visible)) // Presiona ESC para pausar/despausar
         {
+            Debug.Log("abrir menu");
             TogglePause();
         }
     }
@@ -40,6 +44,8 @@ public class PauseMenu : MonoBehaviour
             pausePanel.SetActive(true);
             Time.timeScale = 0f; // Detiene el juego
             playerController.enabled = false; // Deshabilita el movimiento
+            playerController2.enabled = false; // Deshabilita el movimiento
+
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -69,6 +75,8 @@ public class PauseMenu : MonoBehaviour
         pausePanel.SetActive(false);
         Time.timeScale = 1f; // Reanuda el juego
         playerController.enabled = true; // Habilita el movimiento
+        playerController2.enabled = true; // Habilita el movimiento
+
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

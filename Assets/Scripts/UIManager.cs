@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [Header("Controlador de Jugador (MFPC)")]
     public MonoBehaviour controladorJugador; // Tu script de movimiento
 
+
     [Header("Cámaras")]
     public Camera cameraJuego;
     public Camera cameraGameOver;
