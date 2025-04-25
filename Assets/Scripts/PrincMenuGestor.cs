@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class PrincMenuGestor : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class PrincMenuGestor : MonoBehaviour
     public bool Salir, Iniciar, Ajustes;
     public int NumEscena;
     public GameObject FondoAjustes;
+
+    [Header("Video de carga")]
+    public GameObject panelVideoCarga;
+    public VideoPlayer videoDeCarga;
 
     void Update()
     {
@@ -96,8 +101,52 @@ public class PrincMenuGestor : MonoBehaviour
 
     public void CambiarEscena()
     {
-        SceneManager.LoadScene(NumEscena);
+        // Mostrar video de carga
+        if (panelVideoCarga != null)
+        {
+            panelVideoCarga.SetActive(true);  // Asegurarse de que el panel de video esté visible
+        }
+
+        if (videoDeCarga != null)
+        {
+            videoDeCarga.Play(); // Reproducir el video de carga
+        }
+
+        // Iniciar la carga de la escena con retraso
+        StartCoroutine(CargarEscenaAsync(NumEscena));
     }
+
+    System.Collections.IEnumerator CargarEscenaAsync(int escenaID)
+    {
+        // Esperamos al menos 1 segundo para mostrar el video (si la carga es rápida)
+        yield return new WaitForSeconds(1f);
+
+        // Comienza la carga de la escena de manera asíncrona
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(escenaID);
+        asyncLoad.allowSceneActivation = false;
+
+        // Mientras la escena se está cargando, reproducir el video
+        while (!asyncLoad.isDone)
+        {
+            // Si la carga está al menos al 90%, podemos activar la escena
+            if (asyncLoad.progress >= 0.9f)
+            {
+                // Esperamos un poco más para asegurar que el video se haya mostrado lo suficiente
+                yield return new WaitForSeconds(1f); // Puedes ajustar el tiempo que necesites
+
+                // Detener el video
+                if (videoDeCarga != null)
+                {
+                    videoDeCarga.Stop();
+                }
+
+                // Activar la escena
+                asyncLoad.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+    }
+
     public void AnimInicio()
     {
         ResetEstados();
