@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Folders : MonoBehaviour
 {
-    public MonoBehaviour playerController; // Asigna el script de MFPC en el Inspector
-    public MonoBehaviour playerController2; // Asigna el script de MFPC en el Inspector
+    public MonoBehaviour playerController;
+    public MonoBehaviour playerController2;
 
     public GameObject Infografia;
     public Animator Anicarpeta;
@@ -17,16 +17,16 @@ public class Folders : MonoBehaviour
     public LayerMask interactionLayer;
     public Camera raycastCamera;
 
-    public Animator buttonAnimator;  // Asigna el Animator del botón en el Inspector
-    public float tiempoEspera = 2f; // Tiempo antes de volver a 0 (editable en el Inspector)
+    public Animator buttonAnimator;
+    public float tiempoEspera = 2f;
 
-    public enum Carpeta { Carpeta1, Carpeta2, Carpeta3, Carpeta4, Carpeta5, Carpeta6 } // Opciones para el Inspector
-    public Carpeta NumCarpeta; // Variable para elegir el tipo de botón
+    public enum Carpeta { Carpeta1, Carpeta2, Carpeta3, Carpeta4, Carpeta5, Carpeta6 }
+    public Carpeta NumCarpeta;
 
     [Header("Carpetas")]
     public GameObject[] Carpetas;
 
-    private bool carpetaAbierta = false; // Controla si la carpeta ya está abierta
+    private bool carpetaAbierta = false;
 
     void Update()
     {
@@ -37,10 +37,6 @@ public class Folders : MonoBehaviour
                 b.layer = LayerMask.NameToLayer("Interactable");
             }
         }
-
-        if (carpetaAbierta) return; // Si ya está abierta, no hace nada
-
-
 
         // Opcional: evita interacción si el cursor está sobre UI
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
@@ -71,7 +67,7 @@ public class Folders : MonoBehaviour
                 b.layer = LayerMask.NameToLayer("Interactable");
             }
 
-            buttonAnimator.SetInteger("Folder", (int)NumCarpeta + 1); // Simplificado
+            buttonAnimator.SetInteger("Folder", (int)NumCarpeta + 1);
         }
     }
 
@@ -79,9 +75,9 @@ public class Folders : MonoBehaviour
     {
         Debug.Log("Abrir Carpeta: " + NumCarpeta);
         yield return new WaitForSeconds(0.5f);
-        Time.timeScale = 0f; // Detiene el juego
-        playerController.enabled = false; // Deshabilita el movimiento
-        playerController2.enabled = false; // Deshabilita el movimiento
+        Time.timeScale = 0f;
+        playerController.enabled = false;
+        playerController2.enabled = false;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -92,23 +88,26 @@ public class Folders : MonoBehaviour
 
     public void abririnfo()
     {
+       // if (carpetaAbierta) return; // Solo bloquea si ya estaba abierta
         carpetaAbierta = true;
         StartCoroutine(Abrir());
     }
 
     public void cerrarinfo()
     {
-        Time.timeScale = 1f; // Reanuda el juego
+        Debug.Log("Cerrando carpeta, carpetaAbierta = false");
+
+        Time.timeScale = 1f;
         Infografia.SetActive(false);
         Anicarpeta.SetBool("abierta", false);
         buttonAnimator.SetInteger("Folder", 0);
 
-        playerController.enabled = true; // Habilita el movimiento
-        playerController2.enabled = true; // Habilita el movimiento
+        playerController.enabled = true;
+        playerController2.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        carpetaAbierta = false; // Ahora puede volver a abrirse
+        carpetaAbierta = false;
     }
 }

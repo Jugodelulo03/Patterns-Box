@@ -6,7 +6,7 @@ public class GameStatsManager : MonoBehaviour
 {
     public static GameStatsManager Instance;
 
-    public int numeroNivel = 1;
+    public int numeroNivel;
 
     private int monitoresCorrectos = 0;
     private int monitoresIncorrectos = 0;
@@ -24,6 +24,20 @@ public class GameStatsManager : MonoBehaviour
     public float GetTiempoPromedioPorMonitor() => tiemposPorMonitor.Count > 0 ? tiempoTotalNivel / tiemposPorMonitor.Count : 0f;
     public float GetPorcentajeAciertos() => GetTotalRevisados() > 0 ? (monitoresCorrectos * 100f) / GetTotalRevisados() : 0f;
     public int GetMaxErroresConsecutivos() => maxErroresConsecutivos;
+
+
+    void Start()
+    {
+        PlayerPrefs.SetInt("numeroNivel", numeroNivel);
+        if (PlayerPrefs.HasKey("numeroNivel"))
+        {
+            Debug.Log("Nivel guardado: " + PlayerPrefs.GetInt("numeroNivel"));
+        }
+        else
+        {
+            Debug.Log("No hay nivel guardado.");
+        }
+    }
 
     public string GetPatronMasFallado()
     {
@@ -46,11 +60,24 @@ public class GameStatsManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Cargar número de nivel guardado (si existe)
+            if (PlayerPrefs.HasKey("numeroNivel"))
+            {
+                numeroNivel = PlayerPrefs.GetInt("numeroNivel");
+            }
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetNumeroNivel(int nuevoNivel)
+    {
+        numeroNivel = nuevoNivel;
+        PlayerPrefs.SetInt("numeroNivel", numeroNivel);
+        PlayerPrefs.Save(); // Guarda los cambios inmediatamente
     }
 
     private void Update()

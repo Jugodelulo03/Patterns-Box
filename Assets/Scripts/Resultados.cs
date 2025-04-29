@@ -73,8 +73,17 @@ public class PantallaResultados : MonoBehaviour
             ? "Nivel" + (nivelActual + 1)
             : "Nivel" + nivelActual;
 
-        // Comenzar carga en segundo plano
-        StartCoroutine(CargarEscenaAsync(escenaDestino));
+        if (puntajeFinal >= PuntajeParaPasar)
+        {
+            PlayerPrefs.SetInt("numeroNivel", nivelActual + 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("numeroNivel", nivelActual);
+        }
+
+            // Comenzar carga en segundo plano
+            StartCoroutine(CargarEscenaAsync(escenaDestino));
     }
 
     System.Collections.IEnumerator CargarEscenaAsync(string nombreEscena)

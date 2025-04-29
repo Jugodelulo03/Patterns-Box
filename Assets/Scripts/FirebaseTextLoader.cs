@@ -22,7 +22,7 @@ public class FirebaseTextLoader : MonoBehaviour
 
         if (!snapshot.Exists)
         {
-            Debug.LogWarning($"No se encontraron subvariantes en Firebase para {patronKey} > {varianteNombre}");
+            //Debug.LogWarning($"No se encontraron subvariantes en Firebase para {patronKey} > {varianteNombre}");
             return null;
         }
 
@@ -34,7 +34,7 @@ public class FirebaseTextLoader : MonoBehaviour
 
         if (subvariantes.Count == 0)
         {
-            Debug.LogWarning($"Subvariantes vacías para {patronKey} > {varianteNombre}");
+            //Debug.LogWarning($"Subvariantes vacías para {patronKey} > {varianteNombre}");
             return null;
         }
 

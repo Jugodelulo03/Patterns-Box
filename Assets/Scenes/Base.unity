@@ -23949,14 +23949,10 @@ MonoBehaviour:
   centerPoint: {fileID: 1056380840}
   exitPoint: {fileID: 70913656}
   monitoresEstilos:
-  - {fileID: 2985769297358543829, guid: 52dc12a15497a0b43bb60da4cf9e1ee5, type: 3}
-  - {fileID: 2985769297358543829, guid: 05b60ab1fb05c7741b37bef79f1318d2, type: 3}
-  - {fileID: 2985769297358543829, guid: 7100a7c707969d8428b0c73f5c76e92b, type: 3}
   - {fileID: 2985769297358543829, guid: c9c4ab1adef71a34188c1aef0a1d46d4, type: 3}
-  - {fileID: 2985769297358543829, guid: b861fc28aad78e64082dfe4d831ea980, type: 3}
-  - {fileID: 2985769297358543829, guid: 2cda77041de78304d9b1939fafe751ec, type: 3}
+  - {fileID: 2985769297358543829, guid: 52dc12a15497a0b43bb60da4cf9e1ee5, type: 3}
   - {fileID: 2985769297358543829, guid: c7a37188679762542b0f372c60b205c3, type: 3}
-  - {fileID: 2985769297358543829, guid: a89fa9d63ebadc141a47ac0915c41547, type: 3}
+  - {fileID: 2985769297358543829, guid: fff256d52083d9d41bf41ce0848893d1, type: 3}
   monitorActual: {fileID: 0}
   audioSource: {fileID: 1539627448}
   sonidoCorrecto: {fileID: 8300000, guid: 4f8182a2ec02fb14cbbe862852937cc9, type: 3}

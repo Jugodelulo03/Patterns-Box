@@ -136,7 +136,7 @@ public class MonitorManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No se pudieron cargar textos para el patrón: " + patron + ", variante: " + variante);
+            //Debug.LogError("No se pudieron cargar textos para el patrón: " + patron + ", variante: " + variante);
         }
 
         monitorActual = monitorScript;
