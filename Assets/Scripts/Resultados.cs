@@ -64,54 +64,26 @@ public class PantallaResultados : MonoBehaviour
     void VerificarResultado()
     {
         Time.timeScale = 1f;
-        // Mostrar video de carga
-        if (panelVideoCarga != null) panelVideoCarga.SetActive(true);
-        if (videoDeCarga != null) videoDeCarga.Play();
 
-        // Determinar escena a cargar
-        string escenaDestino = (puntajeFinal >= PuntajeParaPasar)
-            ? "Nivel" + (nivelActual + 1)
-            : "Nivel" + nivelActual;
 
+        //cambie la forma en la que se Guarda el nivel para que use la funcion de Guardar
         if (puntajeFinal >= PuntajeParaPasar)
-        {
-            PlayerPrefs.SetInt("numeroNivel", nivelActual + 1);
-        }
+            GameStatsManager.Instance.GuardarNivel(nivelActual + 1);
         else
-        {
-            PlayerPrefs.SetInt("numeroNivel", nivelActual);
-        }
+            GameStatsManager.Instance.GuardarNivel(nivelActual);
 
-            // Comenzar carga en segundo plano
-            StartCoroutine(CargarEscenaAsync(escenaDestino));
+        //Lineas para el cambio de escenas
+        SceneLoader.Instance.ConfigurarVideo(panelVideoCarga, videoDeCarga);
+        SceneLoader.Instance.CargarEscenaGuardada();
+        /*Nota:
+            Hice un cambio en este codigo para que separa la pantalla de carga con
+            la carga de los niveles asi con llamar las dos funciones dentro del script se pueda 
+            hacer exactamente lo mismo de las corrutinas y asi centralizar esta accion 
+            en la clase "ScenceLoader" en vez de tener una por cada codigo "Resulados" y "PrincMenuGestor".
+
+            Nomas me parecio mas comodo para poder editar despues.
+        */
     }
 
-    System.Collections.IEnumerator CargarEscenaAsync(string nombreEscena)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nombreEscena);
-        asyncLoad.allowSceneActivation = false;
 
-
-
-        // Mientras la escena se está cargando, reproducir el video
-        while (!asyncLoad.isDone)
-        {
-            // Si la carga está al menos al 90%, podemos activar la escena
-            if (asyncLoad.progress >= 0.9f)
-            {
-                // Asegurarse de que la pantalla de carga dure al menos 1 segundo
-                yield return new WaitForSeconds(1f);  // Esperar 1 segundo más, si ya se ha cargado al 90%
-
-                // Detener el video justo antes de activar la escena
-                if (videoDeCarga != null)
-                {
-                    videoDeCarga.Stop();
-                }
-
-                // Activar la escena cuando la carga está lista
-                asyncLoad.allowSceneActivation = true;
-            }
-            yield return null;
-        }
-    }
 }

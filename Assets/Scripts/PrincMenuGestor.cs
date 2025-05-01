@@ -8,16 +8,18 @@ using UnityEngine.Video;
 
 public class PrincMenuGestor : MonoBehaviour
 {
-
+    
     public Animator animador;
-    public bool Salir, Iniciar, Ajustes;
+    public bool Salir, Iniciar, Ajustes,CambioDePantalla=false;
     public int NumEscena;
     public GameObject FondoAjustes;
+
 
     [Header("Video de carga")]
     public GameObject panelVideoCarga;
     public VideoPlayer videoDeCarga;
 
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -35,6 +37,7 @@ public class PrincMenuGestor : MonoBehaviour
 
             foreach (RaycastResult result in results)
             {
+                Debug.Log("Boton");
                 if (result.gameObject.GetComponent<Button>() != null)
                 {
                     clicEnBoton = true;
@@ -43,8 +46,9 @@ public class PrincMenuGestor : MonoBehaviour
             }
 
             // Si no se hizo clic en un botón
-            if (!clicEnBoton)
+            if (!clicEnBoton && CambioDePantalla==false)
             {
+                Debug.Log("NoBoton");
                 AnimInicio(); // Reproduce animación de retorno
             }
         }
@@ -60,7 +64,8 @@ public class PrincMenuGestor : MonoBehaviour
         }
         else
         {
-            CambiarEscena();
+            CambioDePantalla = true;
+            animador.SetBool("Ingresar", CambioDePantalla);
         }
     }
 
@@ -101,51 +106,11 @@ public class PrincMenuGestor : MonoBehaviour
 
     public void CambiarEscena()
     {
-        // Mostrar video de carga
-        if (panelVideoCarga != null)
-        {
-            panelVideoCarga.SetActive(true);  // Asegurarse de que el panel de video esté visible
-        }
-
-        if (videoDeCarga != null)
-        {
-            videoDeCarga.Play(); // Reproducir el video de carga
-        }
-
-        // Iniciar la carga de la escena con retraso
-        StartCoroutine(CargarEscenaAsync(NumEscena));
+        Debug.Log("Cargando nivel");
+        SceneLoader.Instance.ConfigurarVideo(panelVideoCarga, videoDeCarga);
+        SceneLoader.Instance.CargarEscenaGuardada();
     }
 
-    System.Collections.IEnumerator CargarEscenaAsync(int escenaID)
-    {
-        // Esperamos al menos 1 segundo para mostrar el video (si la carga es rápida)
-        yield return new WaitForSeconds(1f);
-
-        // Comienza la carga de la escena de manera asíncrona
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(escenaID);
-        asyncLoad.allowSceneActivation = false;
-
-        // Mientras la escena se está cargando, reproducir el video
-        while (!asyncLoad.isDone)
-        {
-            // Si la carga está al menos al 90%, podemos activar la escena
-            if (asyncLoad.progress >= 0.9f)
-            {
-                // Esperamos un poco más para asegurar que el video se haya mostrado lo suficiente
-                yield return new WaitForSeconds(1f); // Puedes ajustar el tiempo que necesites
-
-                // Detener el video
-                if (videoDeCarga != null)
-                {
-                    videoDeCarga.Stop();
-                }
-
-                // Activar la escena
-                asyncLoad.allowSceneActivation = true;
-            }
-            yield return null;
-        }
-    }
 
     public void AnimInicio()
     {
@@ -162,8 +127,20 @@ public class PrincMenuGestor : MonoBehaviour
 
     private void ResetEstados()
     {
+        CambioDePantalla = false;
+        animador.SetBool("Ingresar", false);
         Iniciar = false;
         Salir = false;
         Ajustes = false;
     }
+
+    public void ResetearNivel()
+    {
+        if (GameStatsManager.Instance != null)
+        {
+            GameStatsManager.Instance.ResetearNivel();
+        }
+    }
+
+
 }

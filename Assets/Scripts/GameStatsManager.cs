@@ -178,4 +178,40 @@ public class GameStatsManager : MonoBehaviour
             }
         });
     }
+
+    // Guarda el nivel que se pasa como argumento
+    public void GuardarNivel(int nivelAGuardar)
+    {
+        numeroNivel = nivelAGuardar;
+        PlayerPrefs.SetInt("numeroNivel", numeroNivel);
+        PlayerPrefs.Save();
+        Debug.Log("Nivel guardado: " + numeroNivel);
+    }
+
+
+    // Carga el nivel guardado
+    public string ObtenerEscenaActual()
+    {
+        if (PlayerPrefs.HasKey("numeroNivel") && numeroNivel>0)
+        {
+            int nivel = PlayerPrefs.GetInt("numeroNivel");
+            return "Nivel" + nivel;
+        }
+        else
+        {
+            numeroNivel = 1;
+            PlayerPrefs.SetInt("numeroNivel", 1);//NivelDefault
+            PlayerPrefs.Save();
+            return "Nivel1"; // o el nivel por defecto
+        }
+    }
+
+
+    // Elimina el dato guardado del nivel
+    public void ResetearNivel()
+    {
+        PlayerPrefs.DeleteKey("numeroNivel");
+        numeroNivel = 0;
+        Debug.Log("Nivel reseteado. Valor actual: " + numeroNivel);
+    }
 }
