@@ -7,6 +7,7 @@ public class GabitAnimator : MonoBehaviour
     public void OpenGabit()
     {
         anim.SetLayerWeight(1, 1); // Activa capa de botones
+        anim.SetBool("Open", true); // Retorna animacion Escritorio
     }
 
     public void CloseGabit()

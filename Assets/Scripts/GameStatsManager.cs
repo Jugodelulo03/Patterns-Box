@@ -1,6 +1,7 @@
 using UnityEngine;
 using Firebase.Database;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameStatsManager : MonoBehaviour
 {
@@ -25,18 +26,38 @@ public class GameStatsManager : MonoBehaviour
     public float GetPorcentajeAciertos() => GetTotalRevisados() > 0 ? (monitoresCorrectos * 100f) / GetTotalRevisados() : 0f;
     public int GetMaxErroresConsecutivos() => maxErroresConsecutivos;
 
+    public bool inicio = false;
+
 
     void Start()
     {
-        PlayerPrefs.SetInt("numeroNivel", numeroNivel);
-        if (PlayerPrefs.HasKey("numeroNivel"))
+        if (inicio)
         {
-            Debug.Log("Nivel guardado: " + PlayerPrefs.GetInt("numeroNivel"));
+            if(PlayerPrefs.GetInt("numeroNivel") >= 0) //Cuando ya jugaste
+            {
+                numeroNivel = PlayerPrefs.GetInt("numeroNivel");
+            }
+            else //Primera vez
+            {
+                numeroNivel = 0;
+                PlayerPrefs.SetInt("numeroNivel", numeroNivel);
+            }
         }
         else
         {
-            Debug.Log("No hay nivel guardado.");
+            PlayerPrefs.SetInt("numeroNivel", numeroNivel);
+            inicio = false;
+            if (PlayerPrefs.HasKey("numeroNivel"))
+                {
+                    Debug.Log("Nivel guardado: " + PlayerPrefs.GetInt("numeroNivel"));
+                }
+                else
+                {
+                    Debug.Log("No hay nivel guardado.");
+                }
+
         }
+
     }
 
     public string GetPatronMasFallado()
@@ -59,17 +80,13 @@ public class GameStatsManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
 
             // Cargar número de nivel guardado (si existe)
-            if (PlayerPrefs.HasKey("numeroNivel"))
-            {
-                numeroNivel = PlayerPrefs.GetInt("numeroNivel");
-            }
-        }
-        else
-        {
-            Destroy(gameObject);
+            //if (PlayerPrefs.HasKey("numeroNivel"))
+            //{
+                //numeroNivel = PlayerPrefs.GetInt("numeroNivel");
+            //}
         }
     }
 
@@ -185,25 +202,25 @@ public class GameStatsManager : MonoBehaviour
         numeroNivel = nivelAGuardar;
         PlayerPrefs.SetInt("numeroNivel", numeroNivel);
         PlayerPrefs.Save();
-        Debug.Log("Nivel guardado: " + numeroNivel);
+        Debug.Log("Nivel guardado nuevo: " + numeroNivel);
     }
 
 
     // Carga el nivel guardado
     public string ObtenerEscenaActual()
     {
-        if (PlayerPrefs.HasKey("numeroNivel") && numeroNivel>0)
+        if (PlayerPrefs.HasKey("numeroNivel"))
         {
-            int nivel = PlayerPrefs.GetInt("numeroNivel");
-            return "Nivel" + nivel;
+            numeroNivel = PlayerPrefs.GetInt("numeroNivel");
         }
         else
         {
-            numeroNivel = 1;
-            PlayerPrefs.SetInt("numeroNivel", 1);//NivelDefault
+            numeroNivel = 0;
+            PlayerPrefs.SetInt("numeroNivel", numeroNivel);
             PlayerPrefs.Save();
-            return "Nivel1"; // o el nivel por defecto
         }
+
+        return "Nivel" + numeroNivel;
     }
 
 
@@ -214,4 +231,10 @@ public class GameStatsManager : MonoBehaviour
         numeroNivel = 0;
         Debug.Log("Nivel reseteado. Valor actual: " + numeroNivel);
     }
+
+    public void IrANivel1()
+    {
+        SceneManager.LoadScene("Nivel1");
+    }
+
 }

@@ -25,4 +25,9 @@ public class MonitorButton : MonoBehaviour
             }
         }
     }
+
+    public void cerrar()
+    {
+        monitorManager.EvaluarRespuesta(patronDelBoton);
+    }
 }

@@ -14,6 +14,8 @@ public class SistemaDialogo : MonoBehaviour
     private Queue<LineaDialogo> colaLineas = new Queue<LineaDialogo>();
     private Coroutine dialogoActivo;
 
+    public float VelocidadEscritura;
+
     private void Awake()
     {
         canvasGroup = panelDialogo.GetComponent<CanvasGroup>();
@@ -63,9 +65,9 @@ public class SistemaDialogo : MonoBehaviour
             // Comienza a escribir el texto sin esperar a que termine antes de continuar
             yield return StartCoroutine(EfectoEscritura(lineaActual.texto));
 
-            // Espera la duración del audio o un tiempo mínimo si no hay audio
-            float espera = (lineaActual.clipDeAudio != null) ? lineaActual.clipDeAudio.length : 2f;
-            yield return new WaitForSeconds(espera + 3f); // Extra tiempo después del audio
+            //yield return new WaitForSeconds(lineaActual.clipDeAudio.length); // Extra tiempo después del audio
+            yield return new WaitForSeconds(2f); // Extra tiempo después del audio
+
         }
 
         // Fade Out después de mostrar todos los diálogos
@@ -80,7 +82,7 @@ public class SistemaDialogo : MonoBehaviour
         for (int i = 0; i < texto.Length; i++)
         {
             textoDialogo.text += texto[i]; // Agrega un carácter a la vez
-            yield return new WaitForSeconds(0.05f); // Ajusta la velocidad aquí
+            yield return new WaitForSeconds(VelocidadEscritura); // Ajusta la velocidad aquí
         }
     }
 

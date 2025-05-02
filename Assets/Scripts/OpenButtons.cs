@@ -37,7 +37,7 @@ public class OpenButtons : MonoBehaviour
         }
     }
 
-    void CheckForButton()
+    public void CheckForButton()
     {
                 if (buttonAnimator != null)
                 {

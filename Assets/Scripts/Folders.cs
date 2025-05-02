@@ -26,7 +26,7 @@ public class Folders : MonoBehaviour
     [Header("Carpetas")]
     public GameObject[] Carpetas;
 
-    private bool carpetaAbierta = false;
+    //private bool carpetaAbierta = false;
 
     void Update()
     {
@@ -89,7 +89,7 @@ public class Folders : MonoBehaviour
     public void abririnfo()
     {
        // if (carpetaAbierta) return; // Solo bloquea si ya estaba abierta
-        carpetaAbierta = true;
+        //carpetaAbierta = true;
         StartCoroutine(Abrir());
     }
 
@@ -108,6 +108,6 @@ public class Folders : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        carpetaAbierta = false;
+        //carpetaAbierta = false;
     }
 }

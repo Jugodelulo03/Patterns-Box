@@ -42,6 +42,7 @@ public class SceneLoader : MonoBehaviour
         AsyncOperation asyncLoad = escena is int index
             ? SceneManager.LoadSceneAsync(index)
             : SceneManager.LoadSceneAsync(escena as string);
+        Debug.Log("Cargando escena2");
 
         asyncLoad.allowSceneActivation = false;
 

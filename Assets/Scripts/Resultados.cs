@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using UnityEditor;
 
 public class PantallaResultados : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class PantallaResultados : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-
+        nivelActual = PlayerPrefs.GetInt("numeroNivel");
         //cambie la forma en la que se Guarda el nivel para que use la funcion de Guardar
         if (puntajeFinal >= PuntajeParaPasar)
             GameStatsManager.Instance.GuardarNivel(nivelActual + 1);
@@ -75,6 +76,8 @@ public class PantallaResultados : MonoBehaviour
         //Lineas para el cambio de escenas
         SceneLoader.Instance.ConfigurarVideo(panelVideoCarga, videoDeCarga);
         SceneLoader.Instance.CargarEscenaGuardada();
+        Debug.Log("Cargando escena");
+
         /*Nota:
             Hice un cambio en este codigo para que separa la pantalla de carga con
             la carga de los niveles asi con llamar las dos funciones dentro del script se pueda 
