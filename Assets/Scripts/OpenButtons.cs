@@ -22,19 +22,23 @@ public class OpenButtons : MonoBehaviour
 
     void Update()
     {
-        Ray ray = raycastCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, interactionDistance, interactionLayer))
+        if(raycastCamera != null && PauseMenu.GameIsPaused == false)
         {
-            if (hit.collider.gameObject == gameObject)
+            Ray ray = raycastCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, interactionDistance, interactionLayer))
             {
-                if (Input.GetMouseButtonDown(0))
+                if (hit.collider.gameObject == gameObject)
                 {
-                    CheckForButton();
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        CheckForButton();
+                    }
                 }
             }
         }
+        
     }
 
     public void CheckForButton()

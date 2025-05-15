@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class FadeOut : MonoBehaviour
 {
     public float fadeDuration = 2f;
+    public GameObject PausaGestor;
     private Image fadeImage;
     private float timer = 0f;
 
@@ -26,6 +27,7 @@ public class FadeOut : MonoBehaviour
             yield return null;
         }
 
+        PausaGestor.SetActive(true);
         fadeImage.gameObject.SetActive(false); // Opcional: desactiva la imagen cuando termina el fade
     }
 }

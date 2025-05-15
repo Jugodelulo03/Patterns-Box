@@ -99,7 +99,8 @@ public class PrincMenuGestor : MonoBehaviour
             }
             else
             {
-                Debug.Log("AsignarUnPanelDeAjustes");
+                CambioDePantalla = true;
+                animador.SetBool("Ingresar", CambioDePantalla);
             }
         }
     }

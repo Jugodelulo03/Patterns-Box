@@ -1,95 +1,85 @@
 ﻿using UnityEngine;
-using System.Collections; // Necesario para usar corrutinas
+using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pausePanel; // Asigna el panel de pausa en el Inspector
-    public MonoBehaviour playerController; // Asigna el script de MFPC en el Inspector
-    public MonoBehaviour playerController2; // Asigna el script de MFPC en el Inspector
+    public GameObject pausePanel,Main,Ajustes;
+    public MonoBehaviour playerController;
+    public MonoBehaviour playerController2;
+    public Animator animador;
 
-    private bool isPaused = false;
-    public Animator animador; // Asigna el Animator en el Inspector
-    public string triggerName = "SubirCarpeta";
-    public string triggerName1 = "BajarCarpeta";
+    //variables estaticas
+    public static bool GameIsPaused { get; private set; } = false;
+    public static bool IsInteracting = false;
+
+
+    public float delayBeforeResume = 0.4f; // Tiempo de espera para que termine la animación de salida
 
     void Start()
     {
-        // Asegurar que el cursor esté bloqueado al inicio del juego
+        IsInteracting = false;
+        GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        // Verifica que el Animator esté asignado
-        if (animador == null)
-        {
-            Debug.LogError("⚠️ No se ha asignado un Animator al PauseMenu.");
-        }
     }
 
     void Update()
     {
-        //Debug.Log(Cursor.visible);
-        if ((Input.GetKeyDown(KeyCode.Escape))&&(!Cursor.visible)) // Presiona ESC para pausar/despausar
+        if (Input.GetKeyDown(KeyCode.Escape) && IsInteracting==false)
         {
-            Debug.Log("abrir menu");
-            TogglePause();
-        }
-    }
-
-    public void TogglePause()
-    {
-        if (!isPaused)
-        {
-            // **PAUSA**
-            isPaused = true;
-            pausePanel.SetActive(true);
-            Time.timeScale = 0f; // Detiene el juego
-            playerController.enabled = false; // Deshabilita el movimiento
-            playerController2.enabled = false; // Deshabilita el movimiento
-
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            if (animador != null)
+            if (GameIsPaused)
             {
-                animador.SetBool("isPause", true);
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
             }
         }
-        else
-        {
-            // **DESPAUSA CON RETRASO**
-            StartCoroutine(ResumeWithDelay());
-        }
     }
 
-    IEnumerator ResumeWithDelay()
+    void PauseGame()
     {
-        if (animador != null)
-        {
-            animador.SetBool("isPause", false);
-        }
+        GameIsPaused = true;
+        pausePanel.SetActive(true);
+        Main.SetActive(true);
+        Ajustes.SetActive(false);
+        Time.timeScale = 0f;
 
-        yield return new WaitForSecondsRealtime(0.4f); // Espera 1 segundo sin depender de Time.timeScale
+        if (playerController != null) playerController.enabled = false;
+        if (playerController2 != null) playerController2.enabled = false;
 
-        isPaused = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (animador != null) animador.SetBool("isPause", true);
+    }
+
+    public void ResumeGame()
+    {
+        StartCoroutine(ResumeAfterDelay());
+    }
+
+    IEnumerator ResumeAfterDelay()
+    {
+        if (animador != null) animador.SetBool("isPause", false);
+
+        yield return new WaitForSecondsRealtime(delayBeforeResume); // Espera sin depender de Time.timeScale
+
+        GameIsPaused = false;
         pausePanel.SetActive(false);
-        Time.timeScale = 1f; // Reanuda el juego
-        playerController.enabled = true; // Habilita el movimiento
-        playerController2.enabled = true; // Habilita el movimiento
+        Time.timeScale = 1f;
 
+        if (playerController != null) playerController.enabled = true;
+        if (playerController2 != null) playerController2.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    public void ResumeGame()
-    {
-        if (isPaused) TogglePause();
-    }
-
     public void QuitToMainMenu()
     {
-        Time.timeScale = 1f; // Asegurar que el tiempo vuelva a la normalidad
+        Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

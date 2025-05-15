@@ -25,22 +25,27 @@ public class MonitorLookInteraction : MonoBehaviour
     {
         if (uiActive) return;
 
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, detectionDistance, uiLayer))
+        if (playerCamera != null && PauseMenu.GameIsPaused == false)
         {
-            //Debug.Log("Detectado monitor: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
+            
+            Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
 
-            if (Input.GetMouseButtonDown(0))
+            if (Physics.Raycast(ray, out hit, detectionDistance, uiLayer))
             {
-                ActivateUIInteraction();
+                //Debug.Log("Detectado monitor: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    ActivateUIInteraction();
+                }
             }
         }
     }
 
     void ActivateUIInteraction()
     {
+        PauseMenu.IsInteracting = true;
         uiActive = true;
 
         Cursor.lockState = CursorLockMode.None;
@@ -57,7 +62,7 @@ public class MonitorLookInteraction : MonoBehaviour
     public void ExitUIInteraction()
     {
         uiActive = false;
-
+        PauseMenu.IsInteracting = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 

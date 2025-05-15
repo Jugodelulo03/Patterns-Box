@@ -32,40 +32,42 @@ public class ObjectOutlineActivator : MonoBehaviour
         }
 
         ShowCrosshair(true); // Mostrar crosshair si cámara está activa
-
-        Ray ray = raycastCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, detectionDistance, outlineLayers))
+        if (raycastCamera != null && PauseMenu.GameIsPaused == false)
         {
-            Outline outline = hit.collider.GetComponent<Outline>();
-            if (outline != null)
+            Ray ray = raycastCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, detectionDistance, outlineLayers))
             {
-                if (lastOutline && lastOutline != outline)
+                Outline outline = hit.collider.GetComponent<Outline>();
+                if (outline != null)
                 {
-                    lastOutline.enabled = false;
+                    if (lastOutline && lastOutline != outline)
+                    {
+                        lastOutline.enabled = false;
+                    }
+
+                    outline.enabled = true;
+                    lastOutline = outline;
                 }
 
-                outline.enabled = true;
-                lastOutline = outline;
+                ShowHint(true);
+
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    // Acción opcional
+                }
             }
-
-            ShowHint(true);
-
-            if (Input.GetKeyDown(KeyCode.F))
+            else
             {
-                // Acción opcional
-            }
-        }
-        else
-        {
-            if (lastOutline)
-            {
-                lastOutline.enabled = false;
-                lastOutline = null;
-            }
+                if (lastOutline)
+                {
+                    lastOutline.enabled = false;
+                    lastOutline = null;
+                }
 
-            ShowHint(false);
+                ShowHint(false);
+            }
         }
     }
 

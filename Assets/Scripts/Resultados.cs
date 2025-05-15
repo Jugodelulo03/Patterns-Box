@@ -33,6 +33,7 @@ public class PantallaResultados : MonoBehaviour
 
     void Start()
     {
+        PauseMenu.IsInteracting = true;
         MostrarEstadisticas();
         botonContinuar.onClick.AddListener(VerificarResultado);
     }

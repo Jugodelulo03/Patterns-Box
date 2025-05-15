@@ -28,6 +28,11 @@ public class GameStatsManager : MonoBehaviour
 
     public bool inicio = false;
 
+    // Configuración de usuario
+    public float volumen = 1f;
+    public float sensibilidad = 1f;
+    public int calidadGrafica = 2;
+    public bool pantallaCompleta = true;
 
     void Start()
     {
@@ -75,20 +80,27 @@ public class GameStatsManager : MonoBehaviour
         return patron;
     }
 
-    private void Awake()
+    void Awake()
     {
+        // Singleton básico
         if (Instance == null)
         {
             Instance = this;
             //DontDestroyOnLoad(gameObject);
 
-            // Cargar número de nivel guardado (si existe)
-            //if (PlayerPrefs.HasKey("numeroNivel"))
-            //{
-                //numeroNivel = PlayerPrefs.GetInt("numeroNivel");
-            //}
+            // Cargar configuraciones guardadas
+            volumen = PlayerPrefs.GetFloat("Volume", 1f);
+            sensibilidad = PlayerPrefs.GetFloat("Sensitivity", 1f);
+            pantallaCompleta = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+            calidadGrafica = PlayerPrefs.GetInt("QualityLevel", QualitySettings.GetQualityLevel());
+
+            // APLICAR volumen inmediatamente
+            AudioListener.volume = volumen;
+            Screen.fullScreen = pantallaCompleta;
+            QualitySettings.SetQualityLevel(calidadGrafica);
         }
     }
+
 
     public void SetNumeroNivel(int nuevoNivel)
     {
@@ -236,5 +248,37 @@ public class GameStatsManager : MonoBehaviour
     {
         SceneManager.LoadScene("Nivel1");
     }
+
+    
+    
+
+    public void CargarConfiguraciones()
+    {
+        volumen = PlayerPrefs.GetFloat("Volume", 1f);
+        sensibilidad = PlayerPrefs.GetFloat("Sensitivity", 1f);
+        calidadGrafica = PlayerPrefs.GetInt("QualityLevel", 2);
+        pantallaCompleta = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+
+        // Aplicar directamente
+        AudioListener.volume = volumen;
+        QualitySettings.SetQualityLevel(calidadGrafica);
+        Screen.fullScreen = pantallaCompleta;
+
+        Debug.Log("Configuraciones cargadas y aplicadas");
+    }
+
+    public void GuardarConfiguraciones()
+    {
+        PlayerPrefs.SetFloat("Volume", volumen);
+        PlayerPrefs.SetFloat("Sensitivity", sensibilidad);
+        PlayerPrefs.SetInt("QualityLevel", calidadGrafica);
+        Debug.Log("Seguardo la calidad: " + calidadGrafica);
+        PlayerPrefs.SetInt("Fullscreen", pantallaCompleta ? 1 : 0);
+        PlayerPrefs.Save();
+
+        Debug.Log("Configuraciones guardadas");
+    }
+
+
 
 }

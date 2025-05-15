@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class CalidadGrafica : MonoBehaviour
@@ -6,32 +6,67 @@ public class CalidadGrafica : MonoBehaviour
     public Button[] botones;
     private int calidadActual = 3; // Por defecto en "Medio"
 
-    void Start()
+    void OnEnable()
     {
-        // Asigna eventos a los botones
         for (int i = 0; i < botones.Length; i++)
         {
-            int index = i; // Necesario para evitar problemas con closures
+            int index = i;
             botones[i].onClick.AddListener(() => CambiarCalidad(index));
         }
 
-        // Aplica la calidad inicial
+        // Carga valor guardado si existe
+        if (PlayerPrefs.HasKey("QualityLevel"))
+        {
+            Debug.Log("Calidad guardada " + PlayerPrefs.GetInt("QualityLevel"));
+            calidadActual = PlayerPrefs.GetInt("QualityLevel");
+        }
+
         CambiarCalidad(calidadActual);
     }
 
-    void CambiarCalidad(int index)
+    void OnDisable()
     {
-        Debug.Log("Índice seleccionado: " + index); // Depuración
+        calidadActual = PlayerPrefs.GetInt("QualityLevel", QualitySettings.GetQualityLevel());
+        AplicarCalidadGuardada(calidadActual); // Restaura la selecciÃ³n visual
+        QualitySettings.SetQualityLevel(calidadActual); // Restaura la calidad real
+    }
+
+    public void CambiarCalidad(int index)
+    {
+        Debug.Log("la calidad es " + index);
         calidadActual = index;
         QualitySettings.SetQualityLevel(index);
+        ActualizarBotones();
+    }
 
-        // Cambia la apariencia del botón seleccionado
+    private void ActualizarBotones()
+    {
         for (int i = 0; i < botones.Length; i++)
         {
-            bool seleccionado = (i == index);
-            botones[i].targetGraphic.color = seleccionado ? Color.white : Color.black;
+            bool seleccionado = (i == calidadActual);
             botones[i].targetGraphic.color = seleccionado ? Color.black : Color.white;
-
         }
     }
+
+    // ðŸ” Exponer nivel actual
+    public int ObtenerCalidadActual()
+    {
+        Debug.Log("Calidad Acutal es: " + calidadActual);
+        return calidadActual;
+    }
+
+    // â¬…ï¸ Aplicar desde fuera
+    public void AplicarCalidadGuardada(int calidad)
+    {
+        calidadActual = calidad;
+        QualitySettings.SetQualityLevel(calidad);
+
+        // Actualiza visualmente los botones
+        for (int i = 0; i < botones.Length; i++)
+        {
+            bool seleccionado = (i == calidad);
+            botones[i].targetGraphic.color = seleccionado ? Color.black : Color.white;
+        }
+    }
+
 }

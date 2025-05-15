@@ -41,21 +41,25 @@ public class Folders : MonoBehaviour
         // Opcional: evita interacción si el cursor está sobre UI
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
-        Ray ray = raycastCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, interactionDistance, interactionLayer))
+        if(raycastCamera != null && PauseMenu.GameIsPaused == false)
         {
-            if (hit.collider.gameObject == gameObject)
+            Ray ray = raycastCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, interactionDistance, interactionLayer))
             {
-                if (Input.GetMouseButtonDown(0))
+                if (hit.collider.gameObject == gameObject)
                 {
-                    Debug.Log("Click detectado en: " + gameObject.name);
-                    CheckForButton();
-                    abririnfo();
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Debug.Log("Click detectado en: " + gameObject.name);
+                        CheckForButton();
+                        abririnfo();
+                    }
                 }
             }
         }
+        
     }
 
     void CheckForButton()
@@ -88,13 +92,15 @@ public class Folders : MonoBehaviour
 
     public void abririnfo()
     {
-       // if (carpetaAbierta) return; // Solo bloquea si ya estaba abierta
+        PauseMenu.IsInteracting = true;
+        // if (carpetaAbierta) return; // Solo bloquea si ya estaba abierta
         //carpetaAbierta = true;
         StartCoroutine(Abrir());
     }
 
     public void cerrarinfo()
     {
+        
         Debug.Log("Cerrando carpeta, carpetaAbierta = false");
 
         Time.timeScale = 1f;
@@ -104,6 +110,8 @@ public class Folders : MonoBehaviour
 
         playerController.enabled = true;
         playerController2.enabled = true;
+
+        PauseMenu.IsInteracting = false;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
