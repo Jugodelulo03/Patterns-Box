@@ -5,6 +5,15 @@ using UnityEngine.EventSystems;
 
 public class Folders : MonoBehaviour
 {
+    public PauseMenu PauseMenu;
+
+    private float tiempoMinimoCerrar = 1f; // Tiempo en segundos
+    private float tiempoDesdeApertura = 0f;
+    private bool puedeCerrar = false;
+
+    private bool abriendo = false;
+
+
     public MonoBehaviour playerController;
     public MonoBehaviour playerController2;
 
@@ -30,6 +39,24 @@ public class Folders : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.IsInteracting == true)
+        {
+            // Aumenta el tiempo desde que se abrió (con tiempo real, ya que Time.timeScale = 0)
+            tiempoDesdeApertura += Time.unscaledDeltaTime;
+
+            // Verifica ESC solo si se puede cerrar
+            if (Input.GetKeyDown(KeyCode.Escape) && puedeCerrar)
+            {
+                Debug.Log("Cerrando carpeta");
+                Infografia.SetActive(false);
+                cerrarinfo();
+                return;
+            }
+        }
+
+        // Si el mouse está sobre UI, no sigas con raycast
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+
         if (buttonAnimator.GetBool("Open") == true)
         {
             foreach (GameObject b in Carpetas)
@@ -38,10 +65,7 @@ public class Folders : MonoBehaviour
             }
         }
 
-        // Opcional: evita interacción si el cursor está sobre UI
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
-
-        if(raycastCamera != null && PauseMenu.GameIsPaused == false)
+        if (raycastCamera != null && PauseMenu.GameIsPaused == false)
         {
             Ray ray = raycastCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
@@ -59,8 +83,8 @@ public class Folders : MonoBehaviour
                 }
             }
         }
-        
     }
+
 
     void CheckForButton()
     {
@@ -78,8 +102,11 @@ public class Folders : MonoBehaviour
     IEnumerator Abrir()
     {
         Debug.Log("Abrir Carpeta: " + NumCarpeta);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f); // animación o efectos
+
         Time.timeScale = 0f;
+        PauseMenu.PauseResumeAudios(true);
+
         playerController.enabled = false;
         playerController2.enabled = false;
 
@@ -88,22 +115,38 @@ public class Folders : MonoBehaviour
 
         Infografia.SetActive(true);
         Anicarpeta.SetBool("abierta", true);
+
+        puedeCerrar = false;
+        tiempoDesdeApertura = 0f;
+        StartCoroutine(HabilitarCerrarDespuésDeTiempo());
+
+        abriendo = false; // ← Liberamos para permitir nuevas aperturas
     }
+
+
+    IEnumerator HabilitarCerrarDespuésDeTiempo()
+    {
+        yield return new WaitForSecondsRealtime(tiempoMinimoCerrar);
+        puedeCerrar = true;
+    }
+
 
     public void abririnfo()
     {
+        if (PauseMenu.IsInteracting || abriendo) return;
+
+        abriendo = true;
         PauseMenu.IsInteracting = true;
-        // if (carpetaAbierta) return; // Solo bloquea si ya estaba abierta
-        //carpetaAbierta = true;
         StartCoroutine(Abrir());
     }
 
+
     public void cerrarinfo()
     {
-        
         Debug.Log("Cerrando carpeta, carpetaAbierta = false");
 
         Time.timeScale = 1f;
+        PauseMenu.PauseResumeAudios(false);
         Infografia.SetActive(false);
         Anicarpeta.SetBool("abierta", false);
         buttonAnimator.SetInteger("Folder", 0);
@@ -116,6 +159,6 @@ public class Folders : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        //carpetaAbierta = false;
+        puedeCerrar = false; // reset
     }
 }

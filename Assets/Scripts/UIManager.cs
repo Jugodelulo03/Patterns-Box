@@ -138,11 +138,8 @@ public class UIManager : MonoBehaviour
     public void SalirDelJuego()
     {
         // Salir del juego (funciona solo en build, no en el editor)
-        Application.Quit();
+        SceneManager.LoadScene(0);
 
-        // Solo para pruebas en editor (opcional):
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+        
     }
 }

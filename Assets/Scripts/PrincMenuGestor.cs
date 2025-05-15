@@ -19,7 +19,10 @@ public class PrincMenuGestor : MonoBehaviour
     public GameObject panelVideoCarga;
     public VideoPlayer videoDeCarga;
 
-    
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -124,6 +127,12 @@ public class PrincMenuGestor : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Aplicación cerrada");
+
+        // Solo para pruebas en editor (opcional):
+
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
     private void ResetEstados()

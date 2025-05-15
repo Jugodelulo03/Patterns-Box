@@ -15611,7 +15611,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &542600798
 RectTransform:
@@ -15620,7 +15620,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 542600794}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
@@ -19738,7 +19738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Salir
+  m_text: Menu Principal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
   m_sharedMaterial: {fileID: -3867019097545937274, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
@@ -20537,7 +20537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1101218193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20596,6 +20596,8 @@ MonoBehaviour:
   playerController: {fileID: 839661658}
   playerController2: {fileID: 1951015430}
   animador: {fileID: 1664264520}
+  dialogueAudio: {fileID: 1828254688}
+  MusicAudio: {fileID: 2027289155}
   delayBeforeResume: 0.4
 --- !u!1 &1104584881
 GameObject:
@@ -20677,7 +20679,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!224 &1104584885
 RectTransform:
@@ -30424,6 +30426,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 439826063}
   m_SourcePrefab: {fileID: 100100000, guid: 2fd2b819a490be74998aead912c56eb4, type: 3}
+--- !u!82 &2027289155 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6895182642086918450, guid: 2fd2b819a490be74998aead912c56eb4, type: 3}
+  m_PrefabInstance: {fileID: 2027289154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2034131575
 GameObject:
   m_ObjectHideFlags: 0
@@ -33401,6 +33408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 1101218195}
   playerController: {fileID: 1951015430}
   playerController2: {fileID: 839661658}
   Infografia: {fileID: 718350596}
@@ -33568,6 +33576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 1101218195}
   playerController: {fileID: 1951015430}
   playerController2: {fileID: 839661658}
   Infografia: {fileID: 1149099441}
@@ -34159,6 +34168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 1101218195}
   playerController: {fileID: 1951015430}
   playerController2: {fileID: 839661658}
   Infografia: {fileID: 1818861650}
@@ -35106,6 +35116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 1101218195}
   playerController: {fileID: 1951015430}
   playerController2: {fileID: 839661658}
   Infografia: {fileID: 1196145971}
@@ -35192,6 +35203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 1101218195}
   playerController: {fileID: 1951015430}
   playerController2: {fileID: 839661658}
   Infografia: {fileID: 1158378317}
@@ -35462,6 +35474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 1101218195}
   playerController: {fileID: 1951015430}
   playerController2: {fileID: 839661658}
   Infografia: {fileID: 1563873989}
