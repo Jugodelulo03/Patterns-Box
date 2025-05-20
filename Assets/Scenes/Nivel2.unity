@@ -14195,7 +14195,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 406880484}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -16890,7 +16890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7ac640c317f7e49b78cb6649fd0670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuntajeParaPasar: 3000
+  PuntajeParaPasar: 5000
   txtPuntajeParaPasar: {fileID: 903069460}
   textoNivel: {fileID: 1542436146}
   textoCorrectos: {fileID: 1304867364}
@@ -17897,8 +17897,8 @@ MonoBehaviour:
   texto: "El rendimiento que tuviste ayer fue el m\xEDnimo esperado. Sin embargo,
     nos tomamos la libertad de darte un mejor espacio para trabajar... Esto tiene
     como fin que la productividad aumente. Es una jugada arriesgada, pero estamos
-    comprometidos contigo, como esperamos que lo est\xE9s con la empresa. Ponte la
-    camiseta por la empresa. "
+    comprometidos contigo, como esperamos que lo est\xE9s con la empresa. Te estar\xE9
+    vigilando..."
   clipDeAudio: {fileID: 8300000, guid: ec9226f2981a6f84c938a19172c4d3d1, type: 3}
 --- !u!114 &771786578
 MonoBehaviour:
@@ -17912,7 +17912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e281cfd90cb35f469cf786fb7fb194f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sistemaDialogo: {fileID: 0}
+  sistemaDialogo: {fileID: 406880485}
   tiempoInicio: 30
   personaje: JEFE
   texto: "El d\xEDa de hoy conocer\xE1s patrones nuevos y algo m\xE1s complicados
@@ -20355,7 +20355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b88ada0817cf1841a55437f4e22ac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoTotal: 90
+  tiempoTotal: 120
   textoTimer: {fileID: 1609032441}
   monitoresCorrectos: 0
   textoContadorCorrectos: {fileID: 1334300573}
@@ -20367,7 +20367,7 @@ MonoBehaviour:
   animador: {fileID: 790471204}
   controladorJugador: {fileID: 1951015430}
   cameraJuego: {fileID: 439826058}
-  cameraGameOver: {fileID: 1408465475}
+  cameraGameOver: {fileID: 0}
 --- !u!4 &1101218194
 Transform:
   m_ObjectHideFlags: 0
@@ -24310,143 +24310,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399536790}
   m_CullTransparentMesh: 1
---- !u!1 &1408465474
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1408465478}
-  - component: {fileID: 1408465475}
-  - component: {fileID: 1408465477}
-  - component: {fileID: 1408465476}
-  m_Layer: 0
-  m_Name: Camara Perder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!20 &1408465475
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408465474}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!114 &1408465476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408465474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
---- !u!81 &1408465477
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408465474}
-  m_Enabled: 0
---- !u!4 &1408465478
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408465474}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.90478987, z: 0, w: 0.4258583}
-  m_LocalPosition: {x: 2.013, y: 1.276, z: -1.122}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 129.59, z: 0}
 --- !u!1 &1411714237
 GameObject:
   m_ObjectHideFlags: 0
@@ -25436,10 +25299,16 @@ MonoBehaviour:
   centerPoint: {fileID: 1056380840}
   exitPoint: {fileID: 70913656}
   monitoresEstilos:
-  - {fileID: 2985769297358543829, guid: 52dc12a15497a0b43bb60da4cf9e1ee5, type: 3}
   - {fileID: 2985769297358543829, guid: c9c4ab1adef71a34188c1aef0a1d46d4, type: 3}
+  - {fileID: 2985769297358543829, guid: 52dc12a15497a0b43bb60da4cf9e1ee5, type: 3}
   - {fileID: 2985769297358543829, guid: c7a37188679762542b0f372c60b205c3, type: 3}
-  - {fileID: 2985769297358543829, guid: fff256d52083d9d41bf41ce0848893d1, type: 3}
+  - {fileID: 2985769297358543829, guid: 15e6ef8d608ff704fb694c3f9d809237, type: 3}
+  - {fileID: 2985769297358543829, guid: 1569566ab47ca88489105f9a2205055f, type: 3}
+  - {fileID: 2985769297358543829, guid: da7b74c10e4715640a56432d6a4d0ff8, type: 3}
+  - {fileID: 2985769297358543829, guid: 1ab547032561b074c8efe614075b4bf4, type: 3}
+  - {fileID: 2985769297358543829, guid: 7ddae47cd4fadde4db6684b0f49ed8b9, type: 3}
+  - {fileID: 2985769297358543829, guid: 814d32816febe6d468c3d070a9987fcc, type: 3}
+  - {fileID: 2985769297358543829, guid: 1806e8a4e18529647804c5e8aeaad31d, type: 3}
   monitorActual: {fileID: 0}
   audioSource: {fileID: 1539627448}
   sonidoCorrecto: {fileID: 8300000, guid: 4f8182a2ec02fb14cbbe862852937cc9, type: 3}
@@ -35680,6 +35549,5 @@ SceneRoots:
   - {fileID: 3161919954744487877}
   - {fileID: 1786786859}
   - {fileID: 111182302}
-  - {fileID: 1408465478}
   - {fileID: 1011007637}
   - {fileID: 406880489}

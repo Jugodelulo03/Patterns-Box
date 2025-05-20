@@ -47,13 +47,6 @@ public class FaxHojaSpawner : MonoBehaviour
 
         // Mover hoja suavemente
         StartCoroutine(MoverHojaSuavemente(hoja, destino, duracionMovimiento));
-
-        // Verificar fin de nivel
-        if (errores >= 3)
-        {
-            Debug.Log("¡Nivel perdido por 3 errores!");
-            // Aquí podés mostrar UI, cargar escena, etc.
-        }
     }
 
     private IEnumerator MoverHojaSuavemente(GameObject hoja, Vector3 destino, float duracion)

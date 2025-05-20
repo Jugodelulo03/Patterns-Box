@@ -29682,7 +29682,7 @@ MonoBehaviour:
     busca de patrones enga\xF1osos. Ya que es la primera vez que lo haces, debes
     de presionar el bot\xF3n rojo y posteriormente uno de los botones del tipo de
     patr\xF3n enga\xF1oso al que pertenece que saldr\xE1 encima de la mesa"
-  clipDeAudio: {fileID: 8300000, guid: 933ca2e22174c244094fbca0f96139ca, type: 3}
+  clipDeAudio: {fileID: 8300000, guid: 9de14de7deea83f47bc1c94cf423d875, type: 3}
 --- !u!4 &2057606351
 Transform:
   m_ObjectHideFlags: 0
@@ -29715,7 +29715,7 @@ MonoBehaviour:
   personaje: JEFE
   texto: "de lo contrario presiona el bot\xF3n verde que indica que el dispositivo
     est\xE1 en perfectas condiciones, como debe ser en mi gran empresa. "
-  clipDeAudio: {fileID: 8300000, guid: 261ebd58866002f4fbeecc7c033aaead, type: 3}
+  clipDeAudio: {fileID: 8300000, guid: c6dab0641d003f5429e976fc29b2020f, type: 3}
 --- !u!114 &2057606353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29734,7 +29734,7 @@ MonoBehaviour:
   texto: "\xA1Ah! lo olvide, en la esquina de la oficina hay un gabinete donde encontrar\xE1s
     el manual de cada uno los patrones enga\xF1osos para que aprendas a detectarlos
     y te vuelvas en un experto casi a mi altura.\nTe estar\xE9 vigilando."
-  clipDeAudio: {fileID: 8300000, guid: bf5004c4e4029bd40b0cb937a3ddad46, type: 3}
+  clipDeAudio: {fileID: 8300000, guid: 79e9cc254a33dcd45812133c79d469e6, type: 3}
 --- !u!1 &2068761485
 GameObject:
   m_ObjectHideFlags: 0
@@ -32596,6 +32596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 0}
   playerController: {fileID: 0}
   playerController2: {fileID: 0}
   Infografia: {fileID: 718350596}
@@ -32763,6 +32764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 0}
   playerController: {fileID: 0}
   playerController2: {fileID: 0}
   Infografia: {fileID: 1149099441}
@@ -33405,6 +33407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 0}
   playerController: {fileID: 0}
   playerController2: {fileID: 0}
   Infografia: {fileID: 1818861650}
@@ -34655,6 +34658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 0}
   playerController: {fileID: 0}
   playerController2: {fileID: 0}
   Infografia: {fileID: 1196145971}
@@ -34741,6 +34745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 0}
   playerController: {fileID: 0}
   playerController2: {fileID: 0}
   Infografia: {fileID: 1158378317}
@@ -35011,6 +35016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b05f4e8a6efb3a4093e2da6d7e6b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseMenu: {fileID: 0}
   playerController: {fileID: 0}
   playerController2: {fileID: 0}
   Infografia: {fileID: 1563873989}

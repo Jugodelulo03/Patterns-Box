@@ -53,6 +53,7 @@ public class OpenButtons : MonoBehaviour
                     else if (tipoDeBoton == TipoBoton.Verde)
                     {
                         buttonAnimator.SetInteger(animationParameter, 1); // Botón Verde → DeskState = 1
+                        buttonAnimator.SetInteger(animationParameter, 0); // Vuelve a 0 después de X segundos
                         StartCoroutine(ResetAfterDelay()); // Inicia la espera para volver a 0
                         monitorManager.EvaluarRespuesta(PatronEnganoso.Ninguno);
 
@@ -68,6 +69,6 @@ public class OpenButtons : MonoBehaviour
     IEnumerator ResetAfterDelay()
     {
         yield return new WaitForSeconds(tiempoEspera);
-        buttonAnimator.SetInteger(animationParameter, 0); // Vuelve a 0 después de X segundos
+        buttonAnimator.SetInteger(animationParameter, 2); // Vuelve a 0 después de X segundos
     }
 }

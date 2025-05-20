@@ -80,7 +80,7 @@ public class MonitorManager : MonoBehaviour
 
         foreach (GameObject b in boton)
         {
-            b.layer = LayerMask.NameToLayer("Default");
+            b.layer = LayerMask.NameToLayer("Interactable");
         }
         botonRED.layer = LayerMask.NameToLayer("Interactable");
     }
@@ -144,8 +144,10 @@ public class MonitorManager : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
         }
+        anim.SetInteger("BtnPress", 0);
         yield return StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position, 1));
         monitorListo = true;
+
     }
 
     IEnumerator MoverSuavemente(GameObject monitor, Vector3 destino, float duracion)
