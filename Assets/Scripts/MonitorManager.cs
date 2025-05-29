@@ -26,9 +26,7 @@ public class MonitorManager : MonoBehaviour
     [Header("Fax")]
     public FaxHojaSpawner faxHojaSpawner;
 
-    private FirebaseTextLoader firebaseTextLoader;
     private bool monitorListo = false;
-
     public UIManager uiManager;
 
     [Header("Botones")]
@@ -37,7 +35,6 @@ public class MonitorManager : MonoBehaviour
 
     void Start()
     {
-        firebaseTextLoader = FindObjectOfType<FirebaseTextLoader>();
         StartCoroutine(CrearNuevoMonitorAsync(true));
     }
 
@@ -72,9 +69,6 @@ public class MonitorManager : MonoBehaviour
             if (audioSource && sonidoIncorrecto) audioSource.PlayOneShot(sonidoIncorrecto);
             uiManager?.SumarError(patronNombre);
         }
-
-        // Registrar estadística
-        //GameStatsManager.Instance.RegistrarMonitor(esCorrecto, patronNombre);
 
         MoverMonitorActualYCrearOtro(esCorrecto);
 
@@ -113,41 +107,32 @@ public class MonitorManager : MonoBehaviour
     {
         monitorListo = false;
 
-        // Iniciar tiempo para el nuevo monitor
+        Debug.Log("[Monitor] Iniciando creación de nuevo monitor");
+
         GameStatsManager.Instance.IniciarTiempoMonitor();
 
         GameObject prefab = monitoresEstilos[Random.Range(0, monitoresEstilos.Length)];
         GameObject nuevoMonitor = Instantiate(prefab, entryPoint.position, Quaternion.identity);
         nuevoMonitor.SetActive(true);
+        Debug.Log("[Monitor] Prefab instanciado");
 
         Monitor monitorScript = nuevoMonitor.GetComponent<Monitor>();
-        PatronEnganoso patron = monitorScript.patronAsignado;
-        string variante = monitorScript.varianteSeleccionada;
 
-        var textoTask = firebaseTextLoader.GetRandomSubvarianteFor(patron, variante);
-        while (!textoTask.IsCompleted)
-            yield return null;
-
-        TextoMonitor textos = textoTask.Result;
-
-        if (textos != null)
-        {
-            monitorScript.SetTextos(textos);
-        }
-        else
-        {
-            //Debug.LogError("No se pudieron cargar textos para el patrón: " + patron + ", variante: " + variante);
-        }
+        // Asignar textos de forma local
+        Debug.Log("[Monitor] Textos asignados localmente.");
 
         monitorActual = monitorScript;
+
         if (!isCorrect)
         {
             yield return new WaitForSeconds(2f);
         }
-        anim.SetInteger("BtnPress", 0);
-        yield return StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position, 1));
-        monitorListo = true;
 
+        anim.SetInteger("BtnPress", 0);
+        Debug.Log("[Monitor] Iniciando movimiento hacia el centro.");
+        yield return StartCoroutine(MoverSuavemente(nuevoMonitor, centerPoint.position, 1));
+        Debug.Log("[Monitor] Monitor listo.");
+        monitorListo = true;
     }
 
     IEnumerator MoverSuavemente(GameObject monitor, Vector3 destino, float duracion)

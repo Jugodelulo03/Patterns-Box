@@ -17359,6 +17359,7 @@ Transform:
   - {fileID: 1556014090}
   - {fileID: 1101218194}
   - {fileID: 352850558}
+  - {fileID: 764075751}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &731449802
@@ -17846,6 +17847,54 @@ RectTransform:
   m_AnchoredPosition: {x: -4.9999847, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &764075750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 764075751}
+  - component: {fileID: 764075752}
+  m_Layer: 0
+  m_Name: CursorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &764075751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764075750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 724411844}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &764075752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764075750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b083831de4ba334984389b353b0ded6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorNormal: {fileID: 2800000, guid: 00480bf3afb44be46907e7991efaaa6e, type: 3}
+  cursorHover: {fileID: 2800000, guid: a7b3ec9a04ddc544db9e614066134191, type: 3}
+  hotSpot: {x: 0, y: 0}
+  cursorMode: 0
 --- !u!1 &771786575
 GameObject:
   m_ObjectHideFlags: 0
@@ -20355,7 +20404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b88ada0817cf1841a55437f4e22ac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoTotal: 90
+  tiempoTotal: 60
   textoTimer: {fileID: 1609032441}
   monitoresCorrectos: 0
   textoContadorCorrectos: {fileID: 1334300573}
@@ -25299,7 +25348,7 @@ MonoBehaviour:
   centerPoint: {fileID: 1056380840}
   exitPoint: {fileID: 70913656}
   monitoresEstilos:
-  - {fileID: 2985769297358543829, guid: 1009f81368c55da42b6fc627c28796a8, type: 3}
+  - {fileID: 2985769297358543829, guid: c9c4ab1adef71a34188c1aef0a1d46d4, type: 3}
   monitorActual: {fileID: 0}
   audioSource: {fileID: 1539627448}
   sonidoCorrecto: {fileID: 8300000, guid: 4f8182a2ec02fb14cbbe862852937cc9, type: 3}

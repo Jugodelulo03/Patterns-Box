@@ -9859,7 +9859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA1HAS CLICK AQUI\nPARA EMPEZAR TRABAJAR!"
+  m_text: "\xA1HAZ CLICK AQUI\nPARA EMPEZAR TRABAJAR!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
   m_sharedMaterial: {fileID: -3867019097545937274, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}

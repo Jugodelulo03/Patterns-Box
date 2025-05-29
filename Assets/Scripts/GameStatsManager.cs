@@ -246,6 +246,7 @@ public class GameStatsManager : MonoBehaviour
 
     public void IrANivel1()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Nivel1");
     }
 

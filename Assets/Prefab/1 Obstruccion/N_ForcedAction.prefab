@@ -2577,7 +2577,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ACEPTAR Y CERRAR
+  m_text: Aceptar y CERRAR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
   m_sharedMaterial: {fileID: -3867019097545937274, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
@@ -3743,7 +3743,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 50
   m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
@@ -4428,7 +4428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6109272415924925215
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5003,7 +5003,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: RECHAZAR Y SUSCRIBIRSE
+  m_text: Rechazar y CERRAR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}
   m_sharedMaterial: {fileID: -3867019097545937274, guid: e28c0d49c2364ef45ac0b709baaf396c, type: 2}

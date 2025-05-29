@@ -25427,6 +25427,7 @@ MonoBehaviour:
   - {fileID: 2985769297358543829, guid: ba3d7ddb32a72004290d7d51d8ee9a3e, type: 3}
   - {fileID: 2985769297358543829, guid: cfeb03e742260314685c18f87630eab3, type: 3}
   - {fileID: 2985769297358543829, guid: 1009f81368c55da42b6fc627c28796a8, type: 3}
+  - {fileID: 2985769297358543829, guid: 55c08c80ab000eb44ad560bea1aaec70, type: 3}
   monitorActual: {fileID: 0}
   audioSource: {fileID: 1539627448}
   sonidoCorrecto: {fileID: 8300000, guid: 4f8182a2ec02fb14cbbe862852937cc9, type: 3}
